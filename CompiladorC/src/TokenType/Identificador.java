@@ -10,7 +10,7 @@ package TokenType;
  */
 public class Identificador extends Token{
 
-    public Identificador(String token, int linea) {
+    public Identificador(int linea, String token) {
         super(token, linea);
         this.setTipo("Identificador");
     }

@@ -10,7 +10,7 @@ package TokenType;
  */
 public class PalabraReservada extends Token{
 
-    public PalabraReservada(String token, int linea) {
+    public PalabraReservada(int linea, String token) {
         super(token, linea);
         this.setTipo("PalabraReservada");
     }

@@ -10,7 +10,7 @@ package TokenType;
  */
 public class Operador extends Token{
 
-    public Operador(String token, int linea) {
+    public Operador(int linea, String token) {
         super(token, linea);
         this.setTipo("Operador");
     }

@@ -10,7 +10,7 @@ package TokenType;
  */
 public class ErrorLexico extends Token{
 
-    public ErrorLexico(String token, int linea) {
+    public ErrorLexico(int linea, String token) {
         super(token, linea);
         this.setTipo("ErrorLexico");
     }

@@ -10,7 +10,7 @@ package TokenType;
  */
 public class Literal extends Token{
 
-    public Literal(String token, int linea) {
+    public Literal(int linea, String token) {
         super(token, linea);
         this.setTipo("Literal");
     }

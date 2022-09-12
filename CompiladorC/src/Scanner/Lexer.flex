@@ -1,13 +1,14 @@
 package Scanner;
-import TokenTypes.*;
+import TokenType.*;
 %%
 %class Lexer
 %type Token
 
 
+
 espacio=[ ,\t,\r]+
 
-IdentificadorIncorrecto= [A-Za-z_][A-Za-z_0-9]* ñ [A-Za-z_0-9]*
+IdentificadorMalo= [A-Za-z_][A-Za-z_0-9]* ñ [A-Za-z_0-9]*
 Zero = 0
 DecInt = [1-9][0-9]*
 OctalInt = 0[0-7]+
@@ -30,11 +31,10 @@ SP = \r|\n|\r\n
 InvalidIdentifier = [0-9]+ [A-Za-z_$]+
 PalabraReservada = main | auto |break |case |char |const |continue |default |do |double |else |enum |extern |float |for |goto |if |int |long |register |return |short |signed |sizeof |static |struct |switch |typedef |union |unsigned |void |volatile |while
 Operadores = "," |";" |"++" |"--" |"=="|">=" |">" |"?" |"<=" |"<" |"!=" |"||" |"&&" |"!" |"=" |"+" |"-" |"*" |"/" |"%" |"(" | ")" | "[" | "]" |"{" | "}" | ":" |"." |"+=" |"-=" |"*=" |"/=" |"&" |"^" |"|" |">>" |"<<" |"~" |"%=" |"&=" |"^=" |"|=" |"<<=" |">>=" |"->"
-
 %{
     public String lexeme;
 %}
-
+%%
 "//".* {/*Ignore*/}
 "/*"((\*+[^/*])|([^*]))*\**"*/" {System.out.println("Bloque de comentarios");}
 
@@ -43,7 +43,7 @@ Operadores = "," |";" |"++" |"--" |"=="|">=" |">" |"?" |"<=" |"<" |"!=" |"||" |"
 {SP} {System.out.println("Error")}
 
 
-{IdentificadorIncorrecto} {return new ErrorLexico(yyline,yytext());}
+{IdentificadorMalo} {return new ErrorLexico(yyline,yytext());}
 
 {Identificadores} { return new Identificador(yyline,yytext());} 
 
