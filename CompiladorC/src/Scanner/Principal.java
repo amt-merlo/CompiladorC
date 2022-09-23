@@ -4,6 +4,8 @@
  */
 package Scanner;
 
+import Controlador.Controlador;
+import UI.VentanaPrincipal;
 import java.io.File;
 
 /**
@@ -16,8 +18,12 @@ public class Principal {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-        String lexerPath = "C:\\Users\\amtme\\Documents\\GitHub\\CompiladorC\\CompiladorC\\src\\Scanner\\lexer.flex";
+        VentanaPrincipal vista = new VentanaPrincipal();       
+        Controlador ctrl = new Controlador( vista);
+        ctrl.iniciar();
+        
+        String lexerPath = "C:\\Users\\FRANJ\\Desktop\\TEC2022ll\\Compiladores\\Proyecto1"
+                + "\\CompiladorC\\CompiladorC\\src\\Scanner\\Lexer.flex";
         //generarLexer(lexerPath);
         
     }

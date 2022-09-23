@@ -5,21 +5,22 @@
 package UI;
 
 import java.awt.Image;
+
 import javax.swing.ImageIcon;
 
 /**
  *
  * @author amtme
  */
-public class Compiler extends javax.swing.JFrame {
+public class VentanaPrincipal extends javax.swing.JFrame {
 
     /**
      * Creates new form Compiler
      */
-    public Compiler() {
+    public VentanaPrincipal() {
         initComponents();
-        scaleAppIcon();
-        scaleAppWallpaper();
+        //scaleAppIcon();
+        //scaleAppWallpaper();
     }
     //C:\\Users\\amtme\\Documents\\GitHub\\CompiladorC\\CompiladorC\\src\\Images\\dino.png
     public void scaleAppIcon(){
@@ -48,12 +49,8 @@ public class Compiler extends javax.swing.JFrame {
     private void initComponents() {
 
         btnCargar = new javax.swing.JButton();
-        txtFieldPath = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextPane1 = new javax.swing.JTextPane();
         lblTitulo = new javax.swing.JLabel();
         lblSubtitulo = new javax.swing.JLabel();
-        lblResultado = new javax.swing.JLabel();
         lblIcon = new javax.swing.JLabel();
         lblFondo = new javax.swing.JLabel();
 
@@ -61,43 +58,42 @@ public class Compiler extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnCargar.setBackground(new java.awt.Color(221, 104, 127));
-        btnCargar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnCargar.setForeground(new java.awt.Color(0, 0, 0));
-        btnCargar.setText("Cargar Archivo");
-        getContentPane().add(btnCargar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 100, 140, 30));
-        getContentPane().add(txtFieldPath, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 440, -1));
-
-        jTextPane1.setBackground(new java.awt.Color(255, 255, 255));
-        jTextPane1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jTextPane1.setForeground(new java.awt.Color(255, 255, 255));
-        jScrollPane1.setViewportView(jTextPane1);
-
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, 420, 280));
+        btnCargar.setFont(new java.awt.Font("OCR A Extended", 1, 36)); // NOI18N
+        btnCargar.setForeground(new java.awt.Color(255, 255, 255));
+        btnCargar.setText("Analizar");
+        btnCargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCargarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnCargar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 300, 270, 60));
 
         lblTitulo.setFont(new java.awt.Font("OCR A Extended", 1, 36)); // NOI18N
         lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
         lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblTitulo.setText("Compilador para C");
-        getContentPane().add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 590, 50));
+        getContentPane().add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 180, 410, 50));
 
         lblSubtitulo.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         lblSubtitulo.setForeground(new java.awt.Color(255, 255, 255));
         lblSubtitulo.setText("Proyecto Semestral ITCR | Compiladores e Intérpretes ");
-        getContentPane().add(lblSubtitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, -1));
+        getContentPane().add(lblSubtitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 260, -1, -1));
 
-        lblResultado.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        lblResultado.setForeground(new java.awt.Color(255, 255, 255));
-        lblResultado.setText("Resultado");
-        getContentPane().add(lblResultado, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 210, 190, -1));
-
+        lblIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/dino.png"))); // NOI18N
         lblIcon.setText("iconoDino");
-        getContentPane().add(lblIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 230, 320, 340));
+        getContentPane().add(lblIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 310, 230, 110));
 
+        lblFondo.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         lblFondo.setForeground(new java.awt.Color(0, 102, 102));
+        lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/fondo2.jpg"))); // NOI18N
         getContentPane().add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 810, 570));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCargarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -116,33 +112,30 @@ public class Compiler extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Compiler.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Compiler.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Compiler.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Compiler.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Compiler().setVisible(true);
+                new VentanaPrincipal().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCargar;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextPane jTextPane1;
+    public javax.swing.JButton btnCargar;
     private javax.swing.JLabel lblFondo;
     private javax.swing.JLabel lblIcon;
-    private javax.swing.JLabel lblResultado;
     private javax.swing.JLabel lblSubtitulo;
     private javax.swing.JLabel lblTitulo;
-    private javax.swing.JTextField txtFieldPath;
     // End of variables declaration//GEN-END:variables
 }

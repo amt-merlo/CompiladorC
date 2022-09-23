@@ -20,6 +20,7 @@ public class Token {
     public Token(String token, int linea) {
         this.token = token;
         this.linea = linea;
+        this.apariciones = 1;
     }
 
     //Getters
