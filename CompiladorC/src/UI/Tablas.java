@@ -10,7 +10,7 @@ import java.awt.Toolkit;
 
 /**
  *
- * @author Feterro
+ * @author Laptop
  */
 public class Tablas extends javax.swing.JFrame {
 
@@ -284,7 +284,7 @@ public class Tablas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnVolver;
+    public javax.swing.JButton btnVolver;
     public javax.swing.JButton btnVolver1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

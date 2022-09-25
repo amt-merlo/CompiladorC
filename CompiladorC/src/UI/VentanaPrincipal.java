@@ -100,6 +100,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         btnInfo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnInfo.setForeground(new java.awt.Color(255, 255, 255));
         btnInfo.setText("?");
+        btnInfo.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnInfo.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
                 btnInfoMouseMoved(evt);

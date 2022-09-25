@@ -16,7 +16,7 @@ scanf("%d",&y);
 
 if (x > y)
 
-printf("El mayor es: %d",x);
+printf("El mayor es: %d" , x);
 
 else
 
@@ -26,6 +26,6 @@ printf("El mayor es: %d",y);
 
 else
 
-printf("Son iguales");
+printfe("Son iguales");
 
 }

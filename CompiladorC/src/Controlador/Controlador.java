@@ -38,6 +38,7 @@ public class Controlador implements ActionListener{
     public void iniciar(){
         this.ventana.setVisible(true);
         this.ventana.btnCargar.addActionListener(this);
+       
     }
 
     @Override
@@ -53,10 +54,13 @@ public class Controlador implements ActionListener{
                 llenarLista(); 
                 this.ventana.setVisible(false);
                 tabla.setVisible(true);
+                this.tabla.btnVolver.addActionListener(this);
+                this.tabla.btnVolver1.addActionListener(this);
                 
             }
         }
-        else if(e.getSource()==this.tabla.btnVolver1){
+        else if(e.getSource()==this.tabla.btnVolver1 || e.getSource()==this.tabla.btnVolver){ //Arreglar
+            System.out.println("Funciona");
             this.tabla.setVisible(false);
             this.ventana.setVisible(true);
         }
