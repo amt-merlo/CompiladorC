@@ -26,6 +26,7 @@ public class Controlador implements ActionListener{
     private Tablas tabla;
     private VentanaPrincipal ventana;
     
+    
     public Controlador(){
     }
 
@@ -47,13 +48,17 @@ public class Controlador implements ActionListener{
             File archivo =buscador.getSelectedFile();
             if (archivo != null){
                 String path=archivo.getAbsolutePath();
-                Modelo.iniciar(path);  
+                Modelo.iniciar(path);  //Iniciamos el analisis con el path del documento seleccionado por el usuario
                 this.tabla = new Tablas();
-                llenarLista();
+                llenarLista(); 
                 this.ventana.setVisible(false);
                 tabla.setVisible(true);
                 
             }
+        }
+        else if(e.getSource()==this.tabla.btnVolver1){
+            this.tabla.setVisible(false);
+            this.ventana.setVisible(true);
         }
         
         

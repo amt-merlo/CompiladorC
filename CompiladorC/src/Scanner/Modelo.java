@@ -31,13 +31,13 @@ public class Modelo {
     //Esta funcion se encarga de leer el archivo .c
     public static void iniciar(String ruta) {
     try { 
-        Reader lector = new BufferedReader(new FileReader(ruta));
-        Lexer lexer = new Lexer(lector);
-        HashMap<String,Token> lineaHash = new HashMap<>();
+        Reader lector = new BufferedReader(new FileReader(ruta)); //creamos el reader con el documento que contiene el codigo a analizar
+        Lexer lexer = new Lexer(lector); //creamos el lexer con el reader que contiene el codigo
+        HashMap<String,Token> lineaHash = new HashMap<>(); 
         Integer currentLine = 0;
         while(true){
 
-            Token token = lexer.yylex();
+            Token token = lexer.yylex(); //iteramos sobre cada token que hizo match en el lexer
             if(token == null)
             {
                 codeLines.put(currentLine, lineaHash);

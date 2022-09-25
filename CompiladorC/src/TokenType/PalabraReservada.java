@@ -6,7 +6,7 @@ package TokenType;
 
 /**
  *
- * @author amtme
+ * @author amtmerlo
  */
 public class PalabraReservada extends Token{
 
