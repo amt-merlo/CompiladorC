@@ -40,7 +40,7 @@ Operadores = "," |";" |"++" |"--" |"=="|">=" |">" |"?" |"<=" |"<" |"!=" |"||" |"
 
 {PalabraReservada} { return new PalabraReservada(yyline,yytext());}
 
-{SP} {System.out.println("Error")}
+{SP} {System.out.println("Salto de linea")}
 
 
 {IdentificadorMalo} {return new ErrorLexico(yyline,yytext());}
@@ -60,4 +60,4 @@ Operadores = "," |";" |"++" |"--" |"=="|">=" |">" |"?" |"<=" |"<" |"!=" |"||" |"
 
 {InvalidIdentifier} { return new ErrorLexico(yyline,yytext());} 
 
- . {System.out.println("Error");return new ErrorLexico(yyline,yytext());}
+ . {System.out.println("Error lexico");return new ErrorLexico(yyline,yytext());}
