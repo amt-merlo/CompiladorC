@@ -7,6 +7,7 @@ package UI;
 
 import java.awt.Color;
 import java.awt.Toolkit;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -21,8 +22,12 @@ public class Tablas extends javax.swing.JFrame {
     
     public Tablas() {
         initComponents();
+        setAppIcon(); //Icono de la aplicacion
     }
 
+    public void setAppIcon(){
+        setIconImage(new ImageIcon(getClass().getResource("../Images/triceratops.png")).getImage());
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.

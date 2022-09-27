@@ -23,12 +23,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
      */
     public VentanaPrincipal() {
         initComponents();
-        scaleAppIcon();
+        scaleAppImage(); //Imagen de la pantalla principal
+        setAppIcon(); //Icono de la aplicacion
         //scaleAppWallpaper();
     }
     //C:\\Users\\amtme\\Documents\\GitHub\\CompiladorC\\CompiladorC\\src\\Images\\dino.png
-    public void scaleAppIcon(){
-        ImageIcon icon = new ImageIcon("C:\\Users\\amtme\\Documents\\GitHub\\CompiladorC\\CompiladorC\\src\\Images\\dinoVerde.png");
+    public void scaleAppImage(){
+        ImageIcon icon = new ImageIcon("C:\\Users\\amtme\\Documents\\GitHub\\CompiladorC\\CompiladorC\\src\\Images\\triceratops.png");
         Image img = icon.getImage();
         Image imgScale = img.getScaledInstance(lblIcon.getWidth(), lblIcon.getHeight(), Image.SCALE_SMOOTH);
         ImageIcon scaled = new ImageIcon(imgScale);
@@ -41,6 +42,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         Image imgScale = img.getScaledInstance(lblFondo.getWidth(), lblFondo.getHeight(), Image.SCALE_SMOOTH);
         ImageIcon scaled = new ImageIcon(imgScale);
         lblFondo.setIcon(scaled);
+    }
+     
+    public void setAppIcon(){
+        //Icono tomado de: https://www.flaticon.es/iconos-gratis/dinosaurio Freepik
+        setIconImage(new ImageIcon(getClass().getResource("../Images/triceratops.png")).getImage());
     }
 
     /**
@@ -79,22 +85,22 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 btnCargarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnCargar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 300, 270, 60));
+        getContentPane().add(btnCargar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 300, 270, 60));
 
         lblTitulo.setFont(new java.awt.Font("OCR A Extended", 1, 36)); // NOI18N
         lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
         lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblTitulo.setText("Compilador para C");
-        getContentPane().add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 180, 410, 50));
+        getContentPane().add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 180, 410, 50));
 
         lblSubtitulo.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         lblSubtitulo.setForeground(new java.awt.Color(255, 255, 255));
         lblSubtitulo.setText("Proyecto Semestral ITCR | Compiladores e Intérpretes ");
-        getContentPane().add(lblSubtitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 260, -1, -1));
+        getContentPane().add(lblSubtitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 260, -1, -1));
 
         lblIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/dinoVerde.png"))); // NOI18N
         lblIcon.setText("iconoDino");
-        getContentPane().add(lblIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 290, 330));
+        getContentPane().add(lblIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 320, 230, 240));
 
         btnInfo.setBackground(new java.awt.Color(51, 153, 0));
         btnInfo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -116,7 +122,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 btnInfoActionPerformed(evt);
             }
         });
-        getContentPane().add(btnInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 20, 40, 40));
+        getContentPane().add(btnInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 40, 40));
 
         lblFondo.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         lblFondo.setForeground(new java.awt.Color(0, 102, 102));
@@ -150,7 +156,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void btnInfoMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInfoMouseMoved
         // TODO add your handling code here:
-        btnInfo.setBackground(Color.green);
+        btnInfo.setBackground(Color.GREEN);
     }//GEN-LAST:event_btnInfoMouseMoved
 
     private void btnInfoMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_btnInfoMouseWheelMoved
