@@ -1,0 +1,135 @@
+package Parser;
+
+import java_cup.runtime.Symbol;
+import java.util.ArrayList;
+import Scanner.*
+
+parser code
+{:
+
+    public ArrayList<String> errores = new ArrayList<String>();
+
+
+    public void syntax_error(Symbol cur_token){
+	System.err.println("Syntax error at line: " + (cur_token.right+1) + " at column: " + (cur_token.left+1) + " on: " + cur_token.value);
+        this.errores.add("Syntax error at line: " + (cur_token.right+1) + " at column: " + (cur_token.left+1) + " on: " + cur_token.value);
+    }
+
+    public void unrecovered_syntax_error(Symbol cur_token){
+    	System.err.println("Fatal error at line: " + (cur_token.right+1) + " at column: " + (cur_token.left+1) + " on: " + cur_token.value);
+        this.errores.add("Fatal error at line: " + (cur_token.right+1) + " at column: " + (cur_token.left+1) + " on: " + cur_token.value);
+    }
+    
+:};
+
+terminal 
+    Linea,
+    Int,
+    Break,
+    Case,
+    Char,
+    Const,
+    Coma,
+    Continue,
+    Default,
+    Do,
+    For,
+    Long,
+    Return,
+    Short,
+    Switch,
+    Void,
+    While,           
+    If,
+    Else,
+    Relacionales,
+    Identificador,
+    Literal,
+    Parentesis_a,
+    Parentesis_c,
+    Corchete_a,
+    Corchete_c,
+    Llave_a,
+    Llave_c,
+    Main,
+    Scolon,
+    Numero,
+    Asignacion,
+    Or,
+    And,
+    Not,
+    Mas,
+    Menos,
+    Timesslash,
+    Unarios,
+    Write,
+    Read,
+    Dos_puntos,
+    LEX_ERROR
+    ;
+
+non  terminal INICIO, 
+MAIN, 
+DECLARACION_FUNCION, 
+SENTENCIA, 
+LLAMADA_FUNCION, 
+DECLARACION_VAR, 
+IF, 
+IF_ELSE,
+WHILE, 
+DO_WHILE,
+FOR,
+PARAMS, 
+PARAMS_AUX,
+TIPO, 
+LONG , 
+SHORT,
+EXP, 
+SENTENCIA_BOOLEANA,
+Op_booleano , 
+SENTENCIA_FOR, 
+DECLARACION_FOR, 
+OPERADOR,OP_RELACIONALES , 
+CONST_AUX , 
+DECLARACION_VAR_AUX,
+DECL_AUX,
+PARAMS_LL_AUX,
+PARAMS_LL,
+LLAMADA_FUNCION_AUX,
+PARAMS_PREV,
+PARAMS_LL_PREV,
+LINEA_AUX,
+DECLARACIONES_INICIALES,
+DECLARACIONES_INICIALES_AUX,
+ASIGNACION_VAR,
+DECLARACIONES_INICIALES_AUX_AUX,
+SHORT_AUX,
+SHORT_AUX_AUX,
+LONG_AUX,
+LONG_AUX_AUX,
+CONTINUE,
+LANG_FUNCS,
+ARRAY_AUX,
+ARRAY_AUX_AUX,
+NUMERO_AUX,
+ARRAY_EXP_AUX,
+SW,
+DEFAULT_AUX,
+DEFAULT_OPTIONS,
+CASE_AUX,
+CASE_OPTIONS,
+OPTIONS,
+ARRAY_AUX_CONST
+;
+
+precedence right Asignacion;
+precedence left Or;
+precedence left And;
+precedence nonassoc Relacionales;
+precedence left Mas, Menos;
+precedence left Timesslash;
+precedence right Not;
+
+start with INICIO;
+
+

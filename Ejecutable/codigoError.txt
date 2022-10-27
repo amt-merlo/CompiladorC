@@ -1,0 +1,14 @@
+#include <stdio.h>
+
+maín()
+
+{
+
+int x, y;
+
+printf("Hola Mundo :)");
+
+scánf(♀,&x);
+
+
+}
