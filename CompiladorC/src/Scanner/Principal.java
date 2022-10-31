@@ -42,7 +42,7 @@ public class Principal {
         
         String lexerPath = "C:\\Users\\amtme\\Documents\\GitHub\\CompiladorC\\CompiladorC\\src\\Scanner\\Lexer.flex";
         String lexerCupPath = "C:\\Users\\amtme\\Documents\\GitHub\\CompiladorC\\CompiladorC\\src\\Scanner\\LexerCup.flex";
-        String[] paths = {"-parser", "Sintax", "C:\\Users\\amtme\\Documents\\GitHub\\CompiladorC\\CompiladorC\\src\\Parser\\Sintax.cup"};
+        String[] paths = {"-parser", "Sintax", "C:\\Users\\amtme\\Documents\\GitHub\\CompiladorC\\CompiladorC\\src\\Scanner\\Syntax.cup"};
         try {
             //generarLexer(lexerPath);
             generarLexerCup(lexerPath, lexerCupPath, paths);
@@ -75,13 +75,13 @@ public class Principal {
             Paths.get("C:\\Users\\amtme\\Documents\\GitHub\\CompiladorC\\CompiladorC\\src\\Scanner\\sym.java")
         );
         
-        Path rutaSin = Paths.get("C:\\Users\\amtme\\Documents\\GitHub\\CompiladorC\\CompiladorC\\src\\Parser\\Sintax.java");
+        Path rutaSin = Paths.get("C:\\Users\\amtme\\Documents\\GitHub\\CompiladorC\\CompiladorC\\src\\Scanner\\Syntax.java");
         if (Files.exists(rutaSin)){
             Files.delete(rutaSin);
         }
         Files.move(
             Paths.get("C:\\Users\\amtme\\Documents\\GitHub\\CompiladorC\\CompiladorC\\Sintax.java"),
-            Paths.get("C:\\Users\\amtme\\Documents\\GitHub\\CompiladorC\\CompiladorC\\src\\Parser\\Sintax.java")
+            Paths.get("C:\\Users\\amtme\\Documents\\GitHub\\CompiladorC\\CompiladorC\\src\\Scanner\\Syntax.java")
         );
     }
 }
