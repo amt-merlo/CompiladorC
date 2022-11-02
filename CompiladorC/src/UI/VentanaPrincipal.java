@@ -25,7 +25,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         initComponents();
         scaleAppImage(); //Imagen de la pantalla principal
         setAppIcon(); //Icono de la aplicacion
-        //scaleAppWallpaper();
+        scaleAppWallpaper();
     }
     //C:\\Users\\amtme\\Documents\\GitHub\\CompiladorC\\CompiladorC\\src\\Images\\dino.png
     public void scaleAppImage(){
@@ -36,7 +36,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         lblIcon.setIcon(scaled);
     }
     
-     public void scaleAppWallpaper(){
+    public void scaleAppWallpaper(){
         ImageIcon icon = new ImageIcon("C:\\Users\\amtme\\Documents\\GitHub\\CompiladorC\\CompiladorC\\src\\Images\\fondoPrincipalVerde.png");
         Image img = icon.getImage();
         Image imgScale = img.getScaledInstance(lblFondo.getWidth(), lblFondo.getHeight(), Image.SCALE_SMOOTH);
@@ -46,7 +46,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
      
     public void setAppIcon(){
         //Icono tomado de: https://www.flaticon.es/iconos-gratis/dinosaurio Freepik
-        setIconImage(new ImageIcon(getClass().getResource("../Images/triceratops.png")).getImage());
+        //setIconImage(new ImageIcon(getClass().getResource("../Images/triceratops.png")).getImage());
     }
 
     /**
@@ -85,22 +85,22 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 btnCargarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnCargar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 300, 270, 60));
+        getContentPane().add(btnCargar, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 420, 270, 60));
 
-        lblTitulo.setFont(new java.awt.Font("OCR A Extended", 1, 36)); // NOI18N
+        lblTitulo.setFont(new java.awt.Font("OCR A Extended", 1, 48)); // NOI18N
         lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
-        lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitulo.setText("Compilador para C");
-        getContentPane().add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 180, 410, 50));
+        getContentPane().add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 320, 570, 50));
 
         lblSubtitulo.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         lblSubtitulo.setForeground(new java.awt.Color(255, 255, 255));
         lblSubtitulo.setText("Proyecto Semestral ITCR | Compiladores e Intérpretes ");
-        getContentPane().add(lblSubtitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 260, -1, -1));
+        getContentPane().add(lblSubtitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 390, -1, -1));
 
-        lblIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/dinoVerde.png"))); // NOI18N
+        lblIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/triceratops.png"))); // NOI18N
         lblIcon.setText("iconoDino");
-        getContentPane().add(lblIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 320, 230, 240));
+        getContentPane().add(lblIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 470, 330, 310));
 
         btnInfo.setBackground(new java.awt.Color(51, 153, 0));
         btnInfo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -122,12 +122,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 btnInfoActionPerformed(evt);
             }
         });
-        getContentPane().add(btnInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 40, 40));
+        getContentPane().add(btnInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 70, 60));
 
         lblFondo.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         lblFondo.setForeground(new java.awt.Color(0, 102, 102));
         lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/fondoPrincipalVerde.png"))); // NOI18N
-        getContentPane().add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 810, 570));
+        getContentPane().add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1080, 790));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

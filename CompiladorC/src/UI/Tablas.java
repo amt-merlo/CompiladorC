@@ -58,6 +58,7 @@ public class Tablas extends javax.swing.JFrame {
         setBackground(new java.awt.Color(0, 0, 0));
         setResizable(false);
         setSize(new java.awt.Dimension(811, 554));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTabbedPane1.setBackground(new java.awt.Color(102, 102, 102));
         jTabbedPane1.setForeground(new java.awt.Color(255, 255, 255));
@@ -129,7 +130,7 @@ public class Tablas extends javax.swing.JFrame {
         }
 
         jPanel1.add(jScrollPane1);
-        jScrollPane1.setBounds(90, 100, 669, 390);
+        jScrollPane1.setBounds(80, 100, 980, 390);
 
         jPanel1.add(jLabel6);
         jLabel6.setBounds(220, 10, 80, 90);
@@ -140,12 +141,12 @@ public class Tablas extends javax.swing.JFrame {
         jLabel2.setText("Tokens");
         jLabel2.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(10, 0, 811, 77);
+        jLabel2.setBounds(0, 0, 811, 77);
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/fondo5.png"))); // NOI18N
         jLabel4.setText("Scanner Para");
         jPanel1.add(jLabel4);
-        jLabel4.setBounds(0, 0, 840, 560);
+        jLabel4.setBounds(0, 0, 1130, 810);
 
         jTabbedPane1.addTab("Tokens", jPanel1);
 
@@ -218,16 +219,7 @@ public class Tablas extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Errores", jPanel2);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 811, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 554, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
+        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 811, 554));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
