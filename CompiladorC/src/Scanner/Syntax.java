@@ -635,8 +635,8 @@ public class Syntax extends java_cup.runtime.lr_parser {
 
   @Override
     public void syntax_error(Symbol cur_token){
-	System.err.println("Error de sintaxis en la línea: " + (cur_token.right+1) + " at column: " + (cur_token.left+1) + " on: " + cur_token.value);
-        this.errores.add("Syntax error at line: " + (cur_token.right+1) + " at column: " + (cur_token.left+1) + " on: " + cur_token.value);
+	System.err.println("Error de sintaxis en la linea: " + (cur_token.right+1) + " en el caracter numero: " + (cur_token.left+1) + " en el Token: " + cur_token.value);
+        this.errores.add("Error de sintaxis en la línea: " + (cur_token.right+1) + " en el caracter numero: " + (cur_token.left+1) + " en el Token: " + cur_token.value);
     }
 
   @Override

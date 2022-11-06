@@ -28,6 +28,7 @@ public class Controlador implements ActionListener{
     private Tablas tabla;
     private VentanaPrincipal ventana;
     private Analisis resultados;
+    private String texto;
     
     
     public Controlador(){
@@ -41,11 +42,12 @@ public class Controlador implements ActionListener{
     public void iniciar(){
         this.ventana.setVisible(true);
         this.ventana.btnCargar.addActionListener(this);
-       
+        this.texto="";
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        
         if (e.getSource()==this.ventana.btnCargar){
             JFileChooser buscador= new JFileChooser();
             buscador.showOpenDialog(null);
@@ -65,13 +67,15 @@ public class Controlador implements ActionListener{
                 //this.tabla.btnVolver1.addActionListener(this);
                 
                 //ERRORES de Sintaxis
-              
-                if(errores.size()>0){
+                
+                
+                if(!errores.isEmpty()){ //Si encuentra errores
                     
+                    errores.forEach((n) -> texto = texto +"\n"+ n.toString());
                     
-                    resultados.txtFieldSintax.setText(errores.toString());
+                    resultados.txtAreaErroresSintax.setText(texto);
                     resultados.txtAreaSintax.setText("Sintaxis Incorrecta :(");
-                    resultados.txtFieldSintax.setForeground(Color.red);
+                    resultados.txtAreaErroresSintax.setForeground(Color.red);
                 }
                 else{
                    

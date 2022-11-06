@@ -59,7 +59,8 @@ public class Analisis extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         tabla_Errores = new javax.swing.JTable();
         lblTituloErrores2 = new javax.swing.JLabel();
-        txtFieldSintax = new javax.swing.JTextField();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        txtAreaErroresSintax = new javax.swing.JTextArea();
         lblFondoErrores = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -162,15 +163,13 @@ public class Analisis extends javax.swing.JFrame {
         lblTituloErrores2.setText("Errores de Sintaxis");
         jPanel2.add(lblTituloErrores2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 510, -1, -1));
 
-        txtFieldSintax.setBackground(new java.awt.Color(0, 0, 0));
-        txtFieldSintax.setForeground(new java.awt.Color(204, 0, 0));
-        txtFieldSintax.setEnabled(false);
-        txtFieldSintax.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFieldSintaxActionPerformed(evt);
-            }
-        });
-        jPanel2.add(txtFieldSintax, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 570, 1030, 190));
+        txtAreaErroresSintax.setBackground(new java.awt.Color(0, 0, 0));
+        txtAreaErroresSintax.setColumns(20);
+        txtAreaErroresSintax.setForeground(new java.awt.Color(204, 0, 51));
+        txtAreaErroresSintax.setRows(5);
+        jScrollPane4.setViewportView(txtAreaErroresSintax);
+
+        jPanel2.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 570, 1030, 190));
 
         lblFondoErrores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/fondoerrores.png"))); // NOI18N
         jPanel2.add(lblFondoErrores, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1080, 820));
@@ -192,10 +191,6 @@ public class Analisis extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void txtFieldSintaxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFieldSintaxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFieldSintaxActionPerformed
 
     /**
      * @param args the command line arguments
@@ -238,6 +233,7 @@ public class Analisis extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lblFondoAnalisis;
     private javax.swing.JLabel lblFondoErrores;
@@ -247,7 +243,7 @@ public class Analisis extends javax.swing.JFrame {
     private javax.swing.JLabel lblTituloErrores2;
     public javax.swing.JTable tabla_Errores;
     public javax.swing.JTable tabla_Tokens;
+    public javax.swing.JTextArea txtAreaErroresSintax;
     public javax.swing.JTextArea txtAreaSintax;
-    public javax.swing.JTextField txtFieldSintax;
     // End of variables declaration//GEN-END:variables
 }
