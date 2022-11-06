@@ -8,9 +8,7 @@ import Controlador.Controlador;
 import UI.VentanaPrincipal;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -41,9 +39,9 @@ public class Principal {
     */
     public static void main(String[] args) throws FileNotFoundException {
         
-        //VentanaPrincipal vista = new VentanaPrincipal();       
-        //Controlador ctrl = new Controlador( vista);
-        //ctrl.iniciar();
+        VentanaPrincipal vista = new VentanaPrincipal();       
+        Controlador ctrl = new Controlador( vista);
+        ctrl.iniciar();
         
         String lexerPath = "C:\\Users\\amtme\\Documents\\GitHub\\CompiladorC\\CompiladorC\\src\\Scanner\\Lexer.flex";
         String lexerCupPath = "C:\\Users\\amtme\\Documents\\GitHub\\CompiladorC\\CompiladorC\\src\\Scanner\\LexerCup.flex";
@@ -55,7 +53,7 @@ public class Principal {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-
+        /*
         Reader reader = new FileReader("C:\\Users\\amtme\\Desktop\\CodigoC\\identificadores.c");
         Parser parser = new Parser(reader);
         Syntax syntax = new Syntax(parser);
@@ -66,7 +64,7 @@ public class Principal {
         }catch(Exception ex){
             System.out.println("Errores");
             System.out.println(syntax.errores);
-        }
+        }*/
         
     }
     //Genera el scanner para el analisis lexico

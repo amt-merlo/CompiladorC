@@ -110,7 +110,9 @@ public class Analisis extends javax.swing.JFrame {
         lblTituloAnalisis2.setText("Análisis Sintáctico");
         jPanel1.add(lblTituloAnalisis2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 540, 350, 50));
 
+        txtAreaSintax.setBackground(new java.awt.Color(0, 0, 0));
         txtAreaSintax.setColumns(20);
+        txtAreaSintax.setForeground(new java.awt.Color(0, 153, 0));
         txtAreaSintax.setRows(5);
         txtAreaSintax.setEnabled(false);
         jScrollPane2.setViewportView(txtAreaSintax);
@@ -160,8 +162,14 @@ public class Analisis extends javax.swing.JFrame {
         lblTituloErrores2.setText("Errores de Sintaxis");
         jPanel2.add(lblTituloErrores2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 510, -1, -1));
 
-        txtFieldSintax.setText("jTextField1");
+        txtFieldSintax.setBackground(new java.awt.Color(0, 0, 0));
+        txtFieldSintax.setForeground(new java.awt.Color(204, 0, 0));
         txtFieldSintax.setEnabled(false);
+        txtFieldSintax.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFieldSintaxActionPerformed(evt);
+            }
+        });
         jPanel2.add(txtFieldSintax, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 570, 1030, 190));
 
         lblFondoErrores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/fondoerrores.png"))); // NOI18N
@@ -184,6 +192,10 @@ public class Analisis extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtFieldSintaxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFieldSintaxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFieldSintaxActionPerformed
 
     /**
      * @param args the command line arguments
@@ -235,7 +247,7 @@ public class Analisis extends javax.swing.JFrame {
     private javax.swing.JLabel lblTituloErrores2;
     public javax.swing.JTable tabla_Errores;
     public javax.swing.JTable tabla_Tokens;
-    private javax.swing.JTextArea txtAreaSintax;
-    private javax.swing.JTextField txtFieldSintax;
+    public javax.swing.JTextArea txtAreaSintax;
+    public javax.swing.JTextField txtFieldSintax;
     // End of variables declaration//GEN-END:variables
 }

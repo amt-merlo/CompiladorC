@@ -633,11 +633,13 @@ public class Syntax extends java_cup.runtime.lr_parser {
     public ArrayList<String> errores = new ArrayList<String>();
 
 
+  @Override
     public void syntax_error(Symbol cur_token){
-	System.err.println("Syntax error at line: " + (cur_token.right+1) + " at column: " + (cur_token.left+1) + " on: " + cur_token.value);
+	System.err.println("Error de sintaxis en la línea: " + (cur_token.right+1) + " at column: " + (cur_token.left+1) + " on: " + cur_token.value);
         this.errores.add("Syntax error at line: " + (cur_token.right+1) + " at column: " + (cur_token.left+1) + " on: " + cur_token.value);
     }
 
+  @Override
     public void unrecovered_syntax_error(Symbol cur_token){
     	System.err.println("Fatal error at line: " + (cur_token.right+1) + " at column: " + (cur_token.left+1) + " on: " + cur_token.value);
         this.errores.add("Fatal error at line: " + (cur_token.right+1) + " at column: " + (cur_token.left+1) + " on: " + cur_token.value);

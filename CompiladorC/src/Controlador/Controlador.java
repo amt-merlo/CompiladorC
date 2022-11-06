@@ -8,9 +8,11 @@ package Controlador;
 import Scanner.Modelo;
 import TokenType.Token;
 import UI.*;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JFileChooser;
@@ -25,6 +27,7 @@ public class Controlador implements ActionListener{
     
     private Tablas tabla;
     private VentanaPrincipal ventana;
+    private Analisis resultados;
     
     
     public Controlador(){
@@ -50,12 +53,31 @@ public class Controlador implements ActionListener{
             if (archivo != null){
                 String path=archivo.getAbsolutePath();
                 Modelo.iniciar(path);  //Iniciamos el analisis con el path del documento seleccionado por el usuario
-                this.tabla = new Tablas();
+                ArrayList errores = Modelo.parsear(path);
+                this.resultados = new Analisis();
+                //this.tabla = new Tablas();
                 llenarLista(); 
                 this.ventana.setVisible(false);
-                tabla.setVisible(true);
-                this.tabla.btnVolver.addActionListener(this);
-                this.tabla.btnVolver1.addActionListener(this);
+                resultados.setVisible(true);
+                //tabla.setVisible(true);
+                
+                //this.tabla.btnVolver.addActionListener(this);
+                //this.tabla.btnVolver1.addActionListener(this);
+                
+                //ERRORES de Sintaxis
+              
+                if(errores.size()>0){
+                    
+                    
+                    resultados.txtFieldSintax.setText(errores.toString());
+                    resultados.txtAreaSintax.setText("Sintaxis Incorrecta :(");
+                    resultados.txtFieldSintax.setForeground(Color.red);
+                }
+                else{
+                   
+                    resultados.txtAreaSintax.setText("Sintaxis Correcta :)");
+                    resultados.txtAreaSintax.setForeground(Color.green);
+                }
                 
             }
         }
@@ -69,15 +91,16 @@ public class Controlador implements ActionListener{
     }
     
     public void llenarLista(){
-        
-        JTable table = this.tabla.tabla_Tokens;
+        JTable table = this.resultados.tabla_Tokens;
+        //JTable table = this.tabla.tabla_Tokens;
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         for (Map.Entry<String,Token> entry : Modelo.losTokens.entrySet()) {
             String a = entry.getValue().getTotalApariciones();
             model.addRow(new Object[]{entry.getKey(),entry.getValue().getTipo(),a});
         }
         
-        table = this.tabla.tabla_Errores;
+        table = this.resultados.tabla_Errores;
+        //table = this.tabla.tabla_Errores;
         model = (DefaultTableModel) table.getModel();
         System.out.println("Errores");
         for (Map.Entry<String,Token> entry : Modelo.losErrores.entrySet()) {

@@ -11,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -32,7 +33,7 @@ public class Modelo {
     public static void iniciar(String ruta) {
     try { 
         Reader lector = new BufferedReader(new FileReader(ruta)); //creamos el reader con el documento que contiene el codigo a analizar
-        Lexer lexer = new Lexer(lector); //creamos el lexer con el reader que contiene el codigo
+        LexerViejo lexer = new LexerViejo(lector); //creamos el lexer con el reader que contiene el codigo
         HashMap<String,Token> lineaHash = new HashMap<>(); 
         Integer currentLine = 0;
         while(true){
@@ -123,5 +124,30 @@ public class Modelo {
                 
                 });
             });
+    }
+    
+    public static ArrayList parsear(String ruta){
+        ArrayList errores = new ArrayList();
+        try{
+            Reader lector = new BufferedReader(new FileReader(ruta));
+            Parser parser = new Parser(lector);
+            Syntax syntax = new Syntax(parser);
+            
+            
+            try{
+                syntax.parse();
+                System.out.println("SUCCESFULL!! :)");
+            }catch(Exception ex){
+                System.out.println("Errores");
+                System.out.println(syntax.errores);
+               
+            }
+            errores = syntax.errores;
+           
+        }catch (FileNotFoundException ex){
+            System.out.println("Archivo no encontrado");
+        }
+        
+        return errores;
     }
 }
