@@ -2,14 +2,14 @@ int numero;
 
 long int letras (int numero1, int numero2){
 
-    int num1;
+    int num1
     const int numero= 9;
     
-    prueba = prueba+1;
-    switch (numero=0) {
+    pruéba = prueba+1;
+    switch (numero=0 {
     case 0:
       // instructions si val=val1
-      break;
+      
     case 1:
       // instructions si val=val2
       break;
@@ -17,7 +17,7 @@ long int letras (int numero1, int numero2){
       // instructions par defaut
       break;
     }
-    return;
+    return numero;
 }
 
 int main(){

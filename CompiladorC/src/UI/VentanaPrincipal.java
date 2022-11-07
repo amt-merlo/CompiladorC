@@ -93,7 +93,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         lblTitulo.setText("Compilador para C");
         getContentPane().add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 320, 570, 50));
 
-        lblSubtitulo.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        lblSubtitulo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblSubtitulo.setForeground(new java.awt.Color(255, 255, 255));
         lblSubtitulo.setText("Proyecto Semestral ITCR | Compiladores e Intérpretes ");
         getContentPane().add(lblSubtitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 390, -1, -1));

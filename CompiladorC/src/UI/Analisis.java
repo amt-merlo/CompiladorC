@@ -23,8 +23,10 @@ public class Analisis extends javax.swing.JFrame {
     
     public void scaleAppWallpaper(){
         ImageIcon icon = new ImageIcon("C:\\Users\\amtme\\Documents\\GitHub\\CompiladorC\\CompiladorC\\src\\Images\\fondo5.png");
-        ImageIcon iconErrores = new ImageIcon("C:\\Users\\amtme\\Documents\\GitHub\\CompiladorC\\CompiladorC\\src\\Images\\fondoerrores.png");
+        ImageIcon iconSintax = new ImageIcon("C:\\Users\\amtme\\Documents\\GitHub\\CompiladorC\\CompiladorC\\src\\Images\\FondoNaranja.png");
+        ImageIcon iconErrores = new ImageIcon("C:\\Users\\amtme\\Documents\\GitHub\\CompiladorC\\CompiladorC\\src\\Images\\FondoInforme.png");
         Image img = icon.getImage();
+        Image imgSintax = iconSintax.getImage();
         Image imgErrores = iconErrores.getImage();
         //Analisis
         Image imgScale = img.getScaledInstance(lblFondoAnalisis.getWidth(), lblFondoAnalisis.getHeight(), Image.SCALE_SMOOTH);
@@ -34,6 +36,10 @@ public class Analisis extends javax.swing.JFrame {
         Image imgScaleErrores = imgErrores.getScaledInstance(lblFondoErrores.getWidth(), lblFondoErrores.getHeight(), Image.SCALE_SMOOTH);
         ImageIcon scaledErrores = new ImageIcon(imgScaleErrores);
         lblFondoErrores.setIcon(scaledErrores);
+        //Sintaxis
+        Image imgScaleSintax = imgSintax.getScaledInstance(lblFondo.getWidth(), lblFondo.getHeight(), Image.SCALE_SMOOTH);
+        ImageIcon scaledSintax = new ImageIcon(imgScaleSintax);
+        lblFondo.setIcon(scaledSintax);
     }
 
     /**
@@ -48,31 +54,81 @@ public class Analisis extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         lblTituloAnalisis = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tabla_Errores = new javax.swing.JTable();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla_Tokens = new javax.swing.JTable();
-        lblTituloAnalisis2 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        txtAreaSintax = new javax.swing.JTextArea();
+        lblTituloPrincipal = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        txtAreaCodigo = new javax.swing.JTextArea();
+        lblCodigo = new javax.swing.JLabel();
+        lblErroresLex = new javax.swing.JLabel();
         lblFondoAnalisis = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        lblTituloPrincipal2 = new javax.swing.JLabel();
+        lblCodigo2 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtAreaCodigo2 = new javax.swing.JTextArea();
+        lblResultado = new javax.swing.JLabel();
+        txtFieldResultado = new javax.swing.JTextField();
+        lblErroresSin = new javax.swing.JLabel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        txtAreaErroresSin = new javax.swing.JTextArea();
+        lblFondo = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         lblTituloErrores = new javax.swing.JLabel();
+        lblELexicos = new javax.swing.JLabel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        tabla_Errores1 = new javax.swing.JTable();
+        lblTokensInfo = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        tabla_Errores = new javax.swing.JTable();
-        lblTituloErrores2 = new javax.swing.JLabel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        txtAreaErroresSintax = new javax.swing.JTextArea();
+        tabla_Tokens1 = new javax.swing.JTable();
+        lblESintacticos = new javax.swing.JLabel();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        txtAreaErroresSin1 = new javax.swing.JTextArea();
         lblFondoErrores = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
+        jTabbedPane1.setForeground(new java.awt.Color(0, 0, 0));
+        jTabbedPane1.setTabPlacement(javax.swing.JTabbedPane.LEFT);
+
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblTituloAnalisis.setFont(new java.awt.Font("Impact", 0, 36)); // NOI18N
+        lblTituloAnalisis.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lblTituloAnalisis.setForeground(new java.awt.Color(255, 255, 255));
-        lblTituloAnalisis.setText("Análisis Léxico");
-        jPanel1.add(lblTituloAnalisis, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 259, 62));
+        lblTituloAnalisis.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblTituloAnalisis.setText("Tokens encontrados");
+        jPanel1.add(lblTituloAnalisis, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 90, 290, 20));
 
-        tabla_Tokens.setBackground(new java.awt.Color(102, 102, 102));
+        tabla_Errores.setBackground(new java.awt.Color(0, 0, 0));
+        tabla_Errores.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        tabla_Errores.setForeground(new java.awt.Color(255, 255, 255));
+        tabla_Errores.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Error", "Linea"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabla_Errores.setGridColor(new java.awt.Color(51, 51, 51));
+        tabla_Errores.setRowHeight(24);
+        tabla_Errores.getTableHeader().setReorderingAllowed(false);
+        jScrollPane4.setViewportView(tabla_Errores);
+
+        jPanel1.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 490, 850, 270));
+
+        tabla_Tokens.setBackground(new java.awt.Color(0, 0, 0));
         tabla_Tokens.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         tabla_Tokens.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         tabla_Tokens.setForeground(new java.awt.Color(255, 255, 255));
@@ -104,38 +160,112 @@ public class Analisis extends javax.swing.JFrame {
         tabla_Tokens.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tabla_Tokens);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 1030, -1));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 120, 850, 310));
 
-        lblTituloAnalisis2.setFont(new java.awt.Font("Impact", 0, 36)); // NOI18N
-        lblTituloAnalisis2.setForeground(new java.awt.Color(255, 255, 255));
-        lblTituloAnalisis2.setText("Análisis Sintáctico");
-        jPanel1.add(lblTituloAnalisis2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 540, 350, 50));
+        lblTituloPrincipal.setBackground(new java.awt.Color(0, 0, 0));
+        lblTituloPrincipal.setFont(new java.awt.Font("OCR A Extended", 1, 36)); // NOI18N
+        lblTituloPrincipal.setForeground(new java.awt.Color(51, 102, 255));
+        lblTituloPrincipal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTituloPrincipal.setText("Análisis Léxico");
+        lblTituloPrincipal.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 102, 255), 2));
+        jPanel1.add(lblTituloPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 10, 520, -1));
 
-        txtAreaSintax.setBackground(new java.awt.Color(0, 0, 0));
-        txtAreaSintax.setColumns(20);
-        txtAreaSintax.setForeground(new java.awt.Color(0, 153, 0));
-        txtAreaSintax.setRows(5);
-        txtAreaSintax.setEnabled(false);
-        jScrollPane2.setViewportView(txtAreaSintax);
+        txtAreaCodigo.setBackground(new java.awt.Color(0, 0, 0));
+        txtAreaCodigo.setColumns(20);
+        txtAreaCodigo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtAreaCodigo.setForeground(new java.awt.Color(255, 255, 255));
+        txtAreaCodigo.setRows(5);
+        jScrollPane5.setViewportView(txtAreaCodigo);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 600, 1020, 160));
+        jPanel1.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 420, 640));
+
+        lblCodigo.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblCodigo.setForeground(new java.awt.Color(255, 255, 255));
+        lblCodigo.setText("Codigo Analizado");
+        jPanel1.add(lblCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, -1));
+
+        lblErroresLex.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblErroresLex.setForeground(new java.awt.Color(255, 255, 255));
+        lblErroresLex.setText("Errores Léxicos");
+        jPanel1.add(lblErroresLex, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 450, -1, -1));
 
         lblFondoAnalisis.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/fondo5.png"))); // NOI18N
-        jPanel1.add(lblFondoAnalisis, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 4, 1080, 800));
+        jPanel1.add(lblFondoAnalisis, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1600, 1030));
 
-        jTabbedPane1.addTab("Análisis", jPanel1);
+        jTabbedPane1.addTab("Léxico", jPanel1);
+
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblTituloPrincipal2.setBackground(new java.awt.Color(0, 0, 0));
+        lblTituloPrincipal2.setFont(new java.awt.Font("OCR A Extended", 1, 36)); // NOI18N
+        lblTituloPrincipal2.setForeground(new java.awt.Color(255, 102, 0));
+        lblTituloPrincipal2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTituloPrincipal2.setText("Análisis Sintáctico");
+        lblTituloPrincipal2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 102, 0), 2));
+        jPanel3.add(lblTituloPrincipal2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 20, 550, -1));
+
+        lblCodigo2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblCodigo2.setForeground(new java.awt.Color(255, 255, 255));
+        lblCodigo2.setText("Código Analizado");
+        jPanel3.add(lblCodigo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 90, -1, -1));
+
+        txtAreaCodigo2.setBackground(new java.awt.Color(0, 0, 0));
+        txtAreaCodigo2.setColumns(20);
+        txtAreaCodigo2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtAreaCodigo2.setForeground(new java.awt.Color(255, 255, 255));
+        txtAreaCodigo2.setRows(5);
+        jScrollPane2.setViewportView(txtAreaCodigo2);
+
+        jPanel3.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 120, 480, 630));
+
+        lblResultado.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblResultado.setForeground(new java.awt.Color(255, 255, 255));
+        lblResultado.setText("Resultado");
+        jPanel3.add(lblResultado, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 90, -1, -1));
+
+        txtFieldResultado.setBackground(new java.awt.Color(0, 0, 0));
+        txtFieldResultado.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        txtFieldResultado.setForeground(new java.awt.Color(255, 102, 0));
+        txtFieldResultado.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jPanel3.add(txtFieldResultado, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 120, 590, 70));
+
+        lblErroresSin.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblErroresSin.setForeground(new java.awt.Color(255, 255, 255));
+        lblErroresSin.setText("Errores ");
+        jPanel3.add(lblErroresSin, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 210, -1, -1));
+
+        txtAreaErroresSin.setBackground(new java.awt.Color(0, 0, 0));
+        txtAreaErroresSin.setColumns(20);
+        txtAreaErroresSin.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtAreaErroresSin.setForeground(new java.awt.Color(153, 0, 153));
+        txtAreaErroresSin.setRows(5);
+        jScrollPane6.setViewportView(txtAreaErroresSin);
+
+        jPanel3.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 250, 590, 490));
+
+        lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/FondoNaranja.png"))); // NOI18N
+        jPanel3.add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1400, 1010));
+
+        jTabbedPane1.addTab("Sintáctico", jPanel3);
 
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblTituloErrores.setFont(new java.awt.Font("Impact", 0, 36)); // NOI18N
-        lblTituloErrores.setForeground(new java.awt.Color(255, 255, 255));
-        lblTituloErrores.setText("Errores Léxicos");
-        jPanel2.add(lblTituloErrores, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+        lblTituloErrores.setFont(new java.awt.Font("OCR A Extended", 1, 36)); // NOI18N
+        lblTituloErrores.setForeground(new java.awt.Color(0, 153, 153));
+        lblTituloErrores.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTituloErrores.setText("Informe de Análisis");
+        lblTituloErrores.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 153), 2));
+        jPanel2.add(lblTituloErrores, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 10, 490, -1));
 
-        tabla_Errores.setBackground(new java.awt.Color(51, 51, 51));
-        tabla_Errores.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        tabla_Errores.setForeground(new java.awt.Color(255, 255, 255));
-        tabla_Errores.setModel(new javax.swing.table.DefaultTableModel(
+        lblELexicos.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblELexicos.setForeground(new java.awt.Color(255, 255, 255));
+        lblELexicos.setText("Errores Léxicos");
+        jPanel2.add(lblELexicos, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, -1, -1));
+
+        tabla_Errores1.setBackground(new java.awt.Color(0, 0, 0));
+        tabla_Errores1.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        tabla_Errores1.setForeground(new java.awt.Color(255, 255, 255));
+        tabla_Errores1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -151,42 +281,82 @@ public class Analisis extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tabla_Errores.setGridColor(new java.awt.Color(51, 51, 51));
-        tabla_Errores.setRowHeight(24);
-        tabla_Errores.getTableHeader().setReorderingAllowed(false);
-        jScrollPane3.setViewportView(tabla_Errores);
+        tabla_Errores1.setGridColor(new java.awt.Color(51, 51, 51));
+        tabla_Errores1.setRowHeight(24);
+        tabla_Errores1.getTableHeader().setReorderingAllowed(false);
+        jScrollPane7.setViewportView(tabla_Errores1);
 
-        jPanel2.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 1030, -1));
+        jPanel2.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, 1360, 250));
 
-        lblTituloErrores2.setFont(new java.awt.Font("Impact", 0, 36)); // NOI18N
-        lblTituloErrores2.setForeground(new java.awt.Color(255, 255, 255));
-        lblTituloErrores2.setText("Errores de Sintaxis");
-        jPanel2.add(lblTituloErrores2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 510, -1, -1));
+        lblTokensInfo.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblTokensInfo.setForeground(new java.awt.Color(255, 255, 255));
+        lblTokensInfo.setText("Tokens");
+        jPanel2.add(lblTokensInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
 
-        txtAreaErroresSintax.setBackground(new java.awt.Color(0, 0, 0));
-        txtAreaErroresSintax.setColumns(20);
-        txtAreaErroresSintax.setForeground(new java.awt.Color(204, 0, 51));
-        txtAreaErroresSintax.setRows(5);
-        jScrollPane4.setViewportView(txtAreaErroresSintax);
+        tabla_Tokens1.setBackground(new java.awt.Color(0, 0, 0));
+        tabla_Tokens1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        tabla_Tokens1.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        tabla_Tokens1.setForeground(new java.awt.Color(255, 255, 255));
+        tabla_Tokens1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
 
-        jPanel2.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 570, 1030, 190));
+            },
+            new String [] {
+                "Token", "Tipo", "Lineas"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
 
-        lblFondoErrores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/fondoerrores.png"))); // NOI18N
-        jPanel2.add(lblFondoErrores, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1080, 820));
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
-        jTabbedPane1.addTab("Errores", jPanel2);
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabla_Tokens1.setGridColor(new java.awt.Color(51, 51, 51));
+        tabla_Tokens1.setRowHeight(25);
+        tabla_Tokens1.getTableHeader().setReorderingAllowed(false);
+        jScrollPane3.setViewportView(tabla_Tokens1);
+
+        jPanel2.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 1360, 260));
+
+        lblESintacticos.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblESintacticos.setForeground(new java.awt.Color(255, 255, 255));
+        lblESintacticos.setText("Errores Sintácticos");
+        jPanel2.add(lblESintacticos, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 660, -1, -1));
+
+        txtAreaErroresSin1.setBackground(new java.awt.Color(0, 0, 0));
+        txtAreaErroresSin1.setColumns(20);
+        txtAreaErroresSin1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtAreaErroresSin1.setForeground(new java.awt.Color(153, 0, 153));
+        txtAreaErroresSin1.setRows(5);
+        jScrollPane8.setViewportView(txtAreaErroresSin1);
+
+        jPanel2.add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 690, 1360, 110));
+
+        lblFondoErrores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/FondoInforme.png"))); // NOI18N
+        jPanel2.add(lblFondoErrores, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1410, 1010));
+
+        jTabbedPane1.addTab("Informe", jPanel2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1479, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 862, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 990, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -230,20 +400,39 @@ public class Analisis extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JLabel lblCodigo;
+    private javax.swing.JLabel lblCodigo2;
+    private javax.swing.JLabel lblELexicos;
+    private javax.swing.JLabel lblESintacticos;
+    private javax.swing.JLabel lblErroresLex;
+    private javax.swing.JLabel lblErroresSin;
+    private javax.swing.JLabel lblFondo;
     private javax.swing.JLabel lblFondoAnalisis;
     private javax.swing.JLabel lblFondoErrores;
+    private javax.swing.JLabel lblResultado;
     private javax.swing.JLabel lblTituloAnalisis;
-    private javax.swing.JLabel lblTituloAnalisis2;
     private javax.swing.JLabel lblTituloErrores;
-    private javax.swing.JLabel lblTituloErrores2;
+    private javax.swing.JLabel lblTituloPrincipal;
+    private javax.swing.JLabel lblTituloPrincipal2;
+    private javax.swing.JLabel lblTokensInfo;
     public javax.swing.JTable tabla_Errores;
+    public javax.swing.JTable tabla_Errores1;
     public javax.swing.JTable tabla_Tokens;
-    public javax.swing.JTextArea txtAreaErroresSintax;
-    public javax.swing.JTextArea txtAreaSintax;
+    public javax.swing.JTable tabla_Tokens1;
+    public javax.swing.JTextArea txtAreaCodigo;
+    public javax.swing.JTextArea txtAreaCodigo2;
+    public javax.swing.JTextArea txtAreaErroresSin;
+    public javax.swing.JTextArea txtAreaErroresSin1;
+    public javax.swing.JTextField txtFieldResultado;
     // End of variables declaration//GEN-END:variables
 }

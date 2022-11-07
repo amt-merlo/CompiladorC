@@ -118,7 +118,8 @@ DEFAULT_OPTIONS,
 CASE_AUX,
 CASE_OPTIONS,
 OPTIONS,
-ARRAY_AUX_CONST
+ARRAY_AUX_CONST,
+RETURN_AUX_OPTIONS
 ;
 
 precedence right Asignacion;
@@ -158,7 +159,8 @@ SENTENCIA::=
                 LLAMADA_FUNCION DECL_AUX |
                 ASIGNACION_VAR DECL_AUX|
                 CONTINUE DECL_AUX |
-                Return Scolon DECL_AUX|
+                Return Numero Scolon DECL_AUX |
+                Return RETURN_AUX_OPTIONS DECL_AUX|
                 Break Scolon DECL_AUX|
                 Linea SENTENCIA |
                 error DECL_AUX|                
@@ -168,6 +170,8 @@ ASIGNACION_VAR::= Identificador Asignacion ARRAY_AUX_AUX Scolon |Identificador A
 DECL_AUX::= SENTENCIA  ;
 
 CONST_AUX::= Const | ;
+
+RETURN_AUX_OPTIONS::= Scolon | Identificador Scolon ;
 
 DECLARACION_VAR::=  Const TIPO Identificador ARRAY_AUX_CONST Scolon DECLARACION_VAR | TIPO Identificador ARRAY_AUX Scolon DECLARACION_VAR |    ;
 
