@@ -33,9 +33,9 @@ public class Principal {
         paths : {"-parse", "Sintax", "C:\\Users\\FRANJ\\Desktop\\TEC2022ll\\Compiladores\\Proyecto1\\CompiladorC\\CompiladorC\\src\\Parser\\Sintax.cup"}
     
     RUTAS Gaby
-        lexerPath : 
-        lexerCupPath :
-        paths :
+        lexerPath : "C:\Users\gabyg\Documents\GitHub\CompiladorC\CompiladorC\src\Scanner\Lexer.flex"
+        lexerCupPath : "C:\Users\gabyg\Documents\GitHub\CompiladorC\CompiladorC\src\Scanner\LexerCup.flex"
+        paths : {"-parse", "Sintax", "C:\Users\gabyg\Documents\GitHub\CompiladorC\CompiladorC\src\Parser\Sintax.cup"}
     */
     public static void main(String[] args) throws FileNotFoundException {
         
