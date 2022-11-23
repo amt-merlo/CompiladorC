@@ -137,12 +137,15 @@ public class Modelo {
             try{
                 syntax.parse();
                 System.out.println("SUCCESFULL!! :)");
+                
             }catch(Exception ex){
                 System.out.println("Errores");
                 System.out.println(syntax.errores);
                
             }
             errores = syntax.errores;
+            TablaSimbolos.getInstance().imprimir();
+            System.out.println(""+PilaSemantica.getInstance().registros.size());
            
         }catch (FileNotFoundException ex){
             System.out.println("Archivo no encontrado");

@@ -40,7 +40,7 @@ Operadores = "," |";" |"++" |"--" |"=="|">=" |">" |"?" |"<=" |"<" |"!=" |"||" |"
 
 {PalabraReservada} { return new PalabraReservada(yyline,yytext());}
 
-{SP} {System.out.println("Salto de linea")}
+{SP} {System.out.println("Salto de linea");}
 
 
 {IdentificadorMalo} {return new ErrorLexico(yyline,yytext());}

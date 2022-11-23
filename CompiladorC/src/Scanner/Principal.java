@@ -8,7 +8,9 @@ import Controlador.Controlador;
 import UI.VentanaPrincipal;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -53,19 +55,19 @@ public class Principal {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        /*
+        
         Reader reader = new FileReader("C:\\Users\\amtme\\Desktop\\CodigoC\\identificadores.c");
         Parser parser = new Parser(reader);
         Syntax syntax = new Syntax(parser);
-        
+        /*
         try{
             syntax.parse();
             System.out.println("SUCCESFULL!! :)");
         }catch(Exception ex){
             System.out.println("Errores");
             System.out.println(syntax.errores);
-        }*/
-        
+        }
+        */
     }
     //Genera el scanner para el analisis lexico
     public static void generarLexer(String path){
