@@ -128,7 +128,7 @@ public class Controlador implements ActionListener{
         //Normal Errores
         table = this.resultados.tabla_Errores;
         model = (DefaultTableModel) table.getModel();
-        System.out.println("Errores");
+        
         for (Map.Entry<String,Token> entry : Modelo.losErrores.entrySet()) {
             String a = entry.getValue().getTotalApariciones();
             model.addRow(new Object[]{entry.getKey(), a});
@@ -137,7 +137,7 @@ public class Controlador implements ActionListener{
         //Informe Errores
         table = this.resultados.tabla_Errores1;
         model = (DefaultTableModel) table.getModel();
-        System.out.println("Errores");
+       
         for (Map.Entry<String,Token> entry : Modelo.losErrores.entrySet()) {
             String a = entry.getValue().getTotalApariciones();
             model.addRow(new Object[]{entry.getKey(), a});

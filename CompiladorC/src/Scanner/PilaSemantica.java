@@ -40,7 +40,7 @@ public class PilaSemantica {
         RSTipo tipo = null;
         int cont = 0;
         for (int i = this.registros.size()-1; i >= 0; i--) {
-            if("RS_Tipo".equals(registros.get(i).nombre())){
+            if("RSTipo".equals(registros.get(i).nombre())){
                 tipo = (RSTipo) registros.get(i);
                 cont = i;
                 break;
@@ -55,4 +55,6 @@ public class PilaSemantica {
         
         return 1;
     }
+    
+    
 }

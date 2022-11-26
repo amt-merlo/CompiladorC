@@ -31,7 +31,7 @@ public class TablaSimbolos {
     
     public void insertarSimbolo(String ID, String tipo, String ambito, int linea, int columna){
         if(buscarSimbolo(ID,ambito) != null){
-            System.out.println("\u001B[31mError semantico. Linea: " + linea + " Columna: " + columna +  " El identificador fue declarado previamente \""+ID+"\"\u001B[31m");
+            System.out.println("\u001B[31mError semantico encontrado. Linea: " + linea + " Columna: " + columna +  " El identificador fue declarado previamente \""+ID+"\"\u001B[31m");
             if("Funcion".equals(ambito)){
                 this.EliminarFuncion();
             }
@@ -49,12 +49,12 @@ public class TablaSimbolos {
     private RegistroSemantico buscarSimbolo(String ID, String ambito) {
         String currentAmbito;
         RegistroSemantico current;
-        int cont = 0;
+        int cont = 0; 
         if("Parametro".equals(ambito)){
             cont = this.ultimaFuncion;
         }
         for (int i = cont; i < simbolos.size(); i++) {
-            current = simbolos.get(i);
+            current  = simbolos.get(i);
             if(current.getID().compareTo(ID) == 0){
                 currentAmbito = current.getAmbito();
                 if(currentAmbito.equals(ambito)){
@@ -79,10 +79,10 @@ public class TablaSimbolos {
     }
     
     public void imprimir(){
-        System.out.println("\nId  |   Tipo    |   Ambito");
+        System.out.println("\nID  |   TIPO    |   AMBITO");
         for (int i = 0; i < simbolos.size(); i++) {
             RegistroSemantico current = simbolos.get(i);
-            System.out.println("\n"+current.getID()+" *** "+current.getTipo()+" *** "+current.getAmbito());
+            System.out.println("\n"+current.getID()+"  | "+current.getTipo()+" | "+current.getAmbito());
         }
         
     }

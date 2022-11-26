@@ -41,16 +41,16 @@ public class Principal {
     */
     public static void main(String[] args) throws FileNotFoundException {
         
-        VentanaPrincipal vista = new VentanaPrincipal();       
-        Controlador ctrl = new Controlador( vista);
-        ctrl.iniciar();
+        //VentanaPrincipal vista = new VentanaPrincipal();       
+        //Controlador ctrl = new Controlador( vista);
+        //ctrl.iniciar();
         
         String lexerPath = "C:\\Users\\amtme\\Documents\\GitHub\\CompiladorC\\CompiladorC\\src\\Scanner\\Lexer.flex";
         String lexerCupPath = "C:\\Users\\amtme\\Documents\\GitHub\\CompiladorC\\CompiladorC\\src\\Scanner\\LexerCup.flex";
         String[] paths = {"-parser", "Sintax", "C:\\Users\\amtme\\Documents\\GitHub\\CompiladorC\\CompiladorC\\src\\Scanner\\Syntax.cup"};
         try {
-            //generarLexer(lexerPath);
-            //generarParser(lexerPath, lexerCupPath, paths);
+            generarLexer(lexerPath);
+            generarParser(lexerPath, lexerCupPath, paths);
         } catch (Exception ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -61,7 +61,7 @@ public class Principal {
         Syntax syntax = new Syntax(parser);
         /*
         try{
-            syntax.parse();
+            syntax.parse(); 
             System.out.println("SUCCESFULL!! :)");
         }catch(Exception ex){
             System.out.println("Errores");

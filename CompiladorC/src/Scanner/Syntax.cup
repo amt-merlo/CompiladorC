@@ -2,6 +2,7 @@ package Parser;
 
 import java_cup.runtime.Symbol;
 import java.util.ArrayList;
+import Scanner.Registros.*;
 
 parser code
 {:
@@ -34,13 +35,13 @@ parser code
     public void guardarAmbito(String ambito){
         this.pila.guardarVariable(ambito);
     }
-    
+
 :};
 
 terminal 
     Linea,
     Int,
-    Break,
+    Break, 
     Case,
     Char,
     Const,
@@ -147,17 +148,17 @@ precedence left Timesslash;
 precedence right Not;
 
 start with INICIO;
-DECLARACIONES_INICIALES::= DECLARACIONES_INICIALES Const TIPO Identificador ARRAY_AUX_CONST Scolon |
-                            DECLARACIONES_INICIALES TIPO Identificador DECLARACIONES_INICIALES_AUX |
+DECLARACIONES_INICIALES::= DECLARACIONES_INICIALES Const TIPO Identificador:v1 {: parser.guardarRSVar(v1.toString(),v1right +1,v1left +1); parser.guardarAmbito("Global"); :}  ARRAY_AUX_CONST Scolon |
+                            DECLARACIONES_INICIALES TIPO Identificador:v1 {: parser.guardarRSVar(v1.toString(),v1right +1,v1left +1); parser.guardarAmbito("Global"); :}  DECLARACIONES_INICIALES_AUX |
                             DECLARACIONES_INICIALES Const TIPO error ARRAY_AUX_CONST Scolon|
                             DECLARACIONES_INICIALES TIPO error DECLARACIONES_INICIALES_AUX 
                             | ;
 
 DECLARACIONES_INICIALES_AUX::= Scolon 
-                                | Parentesis_a PARAMS_PREV Parentesis_c Llave_a DECLARACION_VAR SENTENCIA Llave_c 
-                                | Parentesis_a PARAMS_PREV Parentesis_c Scolon 
+                                | Parentesis_a PARAMS_PREV Parentesis_c Llave_a DECLARACION_VAR  SENTENCIA Llave_c {: parser.guardarAmbito("Funcion"); :}
+                                | Parentesis_a PARAMS_PREV Parentesis_c Scolon {: parser.guardarAmbito("Funcion"); :}
                                 | error Llave_a DECLARACION_VAR SENTENCIA Llave_c  
-                                |  ;
+                                | ; 
 
 INICIO::= DECLARACIONES_INICIALES MAIN ;
 
@@ -191,7 +192,7 @@ CONST_AUX::= Const | ;
 
 RETURN_AUX_OPTIONS::= Scolon | Identificador Scolon ;
 
-DECLARACION_VAR::=  Const TIPO Identificador ARRAY_AUX_CONST Scolon DECLARACION_VAR | TIPO Identificador ARRAY_AUX Scolon DECLARACION_VAR |    ;
+DECLARACION_VAR::=  Const TIPO Identificador:v1 {: parser.guardarRSVar(v1.toString(),v1right +1,v1left +1); parser.guardarAmbito("Local"); :}  ARRAY_AUX_CONST Scolon DECLARACION_VAR | TIPO Identificador:v1 {: parser.guardarRSVar(v1.toString(),v1right +1,v1left +1); parser.guardarAmbito("Local"); :} ARRAY_AUX Scolon DECLARACION_VAR |    ;
 
 ARRAY_AUX::= Corchete_a EXP Corchete_c  |Corchete_a  Corchete_c  | error |   ;
 
@@ -230,7 +231,7 @@ FOR::= For Parentesis_a SENTENCIA_FOR Parentesis_c Llave_a SENTENCIA Llave_c |
         For Parentesis_a SENTENCIA_FOR Parentesis_c error SENTENCIA Llave_c ;
 
 SENTENCIA_FOR ::=
-    TIPO Identificador Asignacion EXP Scolon SENTENCIA_BOOLEANA Scolon DECLARACION_FOR |
+    TIPO Identificador:v1 {: parser.guardarRSVar(v1.toString(),v1right +1,v1left +1); parser.guardarAmbito("Local FOR"); :} Asignacion EXP Scolon SENTENCIA_BOOLEANA Scolon DECLARACION_FOR |
     Identificador Asignacion EXP Scolon SENTENCIA_BOOLEANA Scolon DECLARACION_FOR|
     error Scolon SENTENCIA_BOOLEANA Scolon DECLARACION_FOR
     
