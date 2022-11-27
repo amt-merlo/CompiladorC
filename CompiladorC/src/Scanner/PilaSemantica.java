@@ -47,10 +47,14 @@ public class PilaSemantica {
             }
         }
         for (int i = this.registros.size()-1; i > cont; i--) {
-            RSVar id = (RSVar) this.Pop();
-            this.tablaSim.insertarSimbolo(id.ID,tipo.tipo, Ambito,id.linea,id.columna);
+            if("RSVar".equals(registros.get(i).nombre())){
+                RSVar id = (RSVar) this.registros.remove(i);
+                //RSVar id = (RSVar) this.Pop();
+                this.tablaSim.insertarSimbolo(id.ID,tipo.tipo, Ambito,id.linea,id.columna);
+            }
         }
-
+        
+        
         this.Pop();
         
         return 1;
@@ -168,9 +172,17 @@ public class PilaSemantica {
             
     }
     
-    public boolean startIf(int linea, int columna){
+    public boolean startIf(){
+        System.out.println("entra a startif");
         RSIf rsIF = new RSIf();
         this.Push(rsIF);
+        return true;
+    }
+    
+    public boolean startWhile(){
+        System.out.println("entra a startwhile");
+        RSWhile rsWhile = new RSWhile();
+        this.Push(rsWhile);
         return true;
     }
     
@@ -189,17 +201,35 @@ public class PilaSemantica {
         registros.remove(cont);
         return true;
     }
-        
-    public boolean comprobarCiclo(int linea, int columna){
-        RSTipo tipo = null;
-        int cont = 0;
+    
+    public boolean comprobarIf(){
+        //comprobar que haya una instruccion if en la pila
         for (int i = this.registros.size()-1; i >= 0; i--) {
-            if("RSIf".equals(registros.get(i).nombre()) || "RSWhile".equals(registros.get(i).nombre()) || "RSFor".equals(registros.get(i).nombre())){
-                cont = i;
+            if("RSIf".equals(registros.get(i).nombre())){
                 return true;
             }
         }
+        return false;
+    }
+    
+    public boolean comprobarCiclo(String nombre, int linea, int columna){
+        System.out.println("entra a comprobar");
+        for (int i = this.registros.size()-1; i >= 0; i--) {
+            if("RSWhile".equals(registros.get(i).nombre()) || "RSFor".equals(registros.get(i).nombre())){
+                System.out.println("reconoce while");
+                if(comprobarIf()){ //Comprobamos que haya un registro de if
+                    return true;
+                }
+                else{
+                    System.out.println("\u001B[31mError semantico encontrado. Linea: " + linea + " Columna: " + columna + " "+ nombre + "fuera de contexto \"\u001B[31m");
+                    return false;
+                }
+            }
+        }
         System.out.println("\u001B[31mError semantico encontrado. Linea: " + linea + " Columna: " + columna + " BREAK | CONTINUE fuera de contexto \"\u001B[31m");
+        for (int i = this.registros.size()-1; i >= 0; i--) {
+            System.out.println(registros.get(i).nombre());
+        }
         return false;
     }
 }
