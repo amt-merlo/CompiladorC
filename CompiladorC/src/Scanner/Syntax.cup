@@ -98,6 +98,7 @@ DECLARACION_FUNCION,
 SENTENCIA, 
 LLAMADA_FUNCION, 
 DECLARACION_VAR, 
+DECLARACION_VAR_AUX_LIST,
 IF, 
 IF_ELSE,
 WHILE, 
@@ -163,6 +164,7 @@ DECLARACIONES_INICIALES::= DECLARACIONES_INICIALES Const TIPO Identificador:v1 {
                             | ;
 
 DECLARACIONES_INICIALES_AUX::= Scolon {: parser.guardarAmbito("Global"); :}
+                                | Coma Identificador DECLARACIONES_INICIALES_AUX
                                 | Parentesis_a PARAMS_PREV Parentesis_c Llave_a DECLARACION_VAR  SENTENCIA Llave_c {: parser.guardarAmbito("Funcion"); :}
                                 | Parentesis_a PARAMS_PREV Parentesis_c Scolon {: parser.guardarAmbito("Funcion"); :}
                                 | error Llave_a DECLARACION_VAR SENTENCIA Llave_c  
@@ -200,7 +202,14 @@ CONST_AUX::= Const | ;
 
 RETURN_AUX_OPTIONS::= Scolon | Identificador Scolon ;
 
-DECLARACION_VAR::=  Const TIPO Identificador:v1 {: parser.guardarRSVar(v1.toString(),v1right +1,v1left +1); parser.guardarAmbito("Local"); :}  ARRAY_AUX_CONST Scolon DECLARACION_VAR | TIPO Identificador:v1 {: parser.guardarRSVar(v1.toString(),v1right +1,v1left +1); parser.guardarAmbito("Local"); :} ARRAY_AUX Scolon DECLARACION_VAR |    ;
+DECLARACION_VAR::=  Const TIPO Identificador:v1 {: parser.guardarRSVar(v1.toString(),v1right +1,v1left +1); parser.guardarAmbito("Local"); :}  ARRAY_AUX_CONST Scolon DECLARACION_VAR | TIPO Identificador:v1 {: parser.guardarRSVar(v1.toString(),v1right +1,v1left +1); parser.guardarAmbito("Local"); :} ARRAY_AUX Scolon DECLARACION_VAR 
+                    |    Const TIPO Identificador DECLARACION_VAR_AUX_LIST
+                    |    ;
+
+
+DECLARACION_VAR_AUX_LIST::= Scolon 
+                            | Coma Identificador DECLARACION_VAR_AUX_LIST
+                            | ;
 
 ARRAY_AUX::= Corchete_a EXP Corchete_c  |Corchete_a  Corchete_c  | error |   ;
 
