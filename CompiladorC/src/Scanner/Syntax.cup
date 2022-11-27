@@ -204,7 +204,7 @@ LLAMADA_FUNCION::= Identificador:v1 Parentesis_a PARAMS_LL_PREV Parentesis_c Sco
                         | LANG_FUNCS ;
 
 SENTENCIA::=    
-                IF {: parser.startIf(); :} DECL_AUX |
+                IF DECL_AUX |
                 IF_ELSE DECL_AUX |
                 WHILE DECL_AUX|
                 DO_WHILE Scolon DECL_AUX |
