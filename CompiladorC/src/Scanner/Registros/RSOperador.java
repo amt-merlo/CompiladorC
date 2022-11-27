@@ -8,10 +8,10 @@ package Scanner.Registros;
  *
  * @author amtme
  */
-public class RSOperador {
-    String operador;
+public class RSOperador extends RS{
+    public String operador;
     
-    public RSOperador(String pperador){
+    public RSOperador(String operador){
         this.operador = operador;
     }
 }

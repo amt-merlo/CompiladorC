@@ -44,6 +44,23 @@ parser code
         this.pila.verificarFuncion(ID, linea, columna);
     }
 
+    public void guardarOperador(String operador){
+        RSOperador operadorRS = new RSOperador(operador);
+        this.pila.Push(operadorRS);
+    }
+
+    public void guardarConstante(String numero, int linea, int columna){
+        this.pila.constantFolding(numero, linea, columna);
+    }
+
+    public void startIf(int linea, int columna){
+        this.pila.startIf(linea, columna);
+    }
+
+    public void endIf(){
+        this.pila.endIf();
+    }
+
 :};
 
 terminal 
@@ -164,7 +181,7 @@ DECLARACIONES_INICIALES::= DECLARACIONES_INICIALES Const TIPO Identificador:v1 {
                             | ;
 
 DECLARACIONES_INICIALES_AUX::= Scolon {: parser.guardarAmbito("Global"); :}
-                                | Coma Identificador DECLARACIONES_INICIALES_AUX
+                                | Coma Identificador:v1 {: parser.guardarRSVar(v1.toString(),v1right +1,v1left +1); :} DECLARACIONES_INICIALES_AUX
                                 | Parentesis_a PARAMS_PREV Parentesis_c Llave_a DECLARACION_VAR  SENTENCIA Llave_c {: parser.guardarAmbito("Funcion"); :}
                                 | Parentesis_a PARAMS_PREV Parentesis_c Scolon {: parser.guardarAmbito("Funcion"); :}
                                 | error Llave_a DECLARACION_VAR SENTENCIA Llave_c  
@@ -211,7 +228,7 @@ DECLARACION_VAR_AUX_LIST::= Scolon
                             | Coma Identificador DECLARACION_VAR_AUX_LIST
                             | ;
 
-ARRAY_AUX::= Corchete_a EXP Corchete_c  |Corchete_a  Corchete_c  | error |   ;
+ARRAY_AUX::= Corchete_a EXP Corchete_c  |Corchete_a  Corchete_c  | error | Coma Identificador:v1 {: parser.guardarRSVar(v1.toString(),v1right +1,v1left +1); :} ARRAY_AUX | ;
 
 ARRAY_AUX_CONST::= Corchete_a EXP Corchete_c Asignacion ARRAY_AUX_AUX  | Corchete_a  Corchete_c  Asignacion ARRAY_AUX_AUX  |  DECLARACION_VAR_AUX ;
 
@@ -223,7 +240,7 @@ ARRAY_AUX_AUX::= EXP | Llave_a  ARRAY_EXP_AUX   Llave_c ;
 ARRAY_EXP_AUX::= EXP |  EXP Coma ARRAY_EXP_AUX;
 
 
-IF ::= If Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a SENTENCIA Llave_c |
+IF ::= If:v1 {: parser.startIf(v1right +1,v1left +1); :} Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a SENTENCIA Llave_c {: parser.endIf(); :} |
        If Parentesis_a error Parentesis_c Llave_a SENTENCIA Llave_c|
         If Parentesis_a  SENTENCIA_BOOLEANA Parentesis_c error ;
 
@@ -234,7 +251,7 @@ SENTENCIA_BOOLEANA ::= EXP  |
 
 OP_RELACIONALES::= Relacionales | And | Or | Not;
 
-IF_ELSE::=  IF  Else Llave_a SENTENCIA Llave_c | IF error Llave_a SENTENCIA Llave_c ;
+IF_ELSE::=  IF  Else Llave_a SENTENCIA Llave_c {: parser.endIf(); :}  | IF error Llave_a SENTENCIA Llave_c ;
 
 WHILE::= While Parentesis_a SENTENCIA_BOOLEANA Parentesis_c  Llave_a  SENTENCIA  Llave_c | While Parentesis_a error  Parentesis_c  Llave_a  SENTENCIA  Llave_c  ;
 
@@ -261,10 +278,10 @@ DECLARACION_FOR ::=
     Unarios Identificador|
     error
 ;
+       
+EXP::= EXP OPERADOR EXP | Parentesis_a EXP Parentesis_c | Identificador | Literal:v1 {: parser.guardarConstante(v1.toString(),v1right +1,v1left +1); :} | Numero | OPERADOR | Identificador Unarios ;
 
-EXP::= EXP OPERADOR EXP | Parentesis_a EXP Parentesis_c | Identificador | Literal | Numero | OPERADOR | Identificador Unarios ;
-
-OPERADOR::= Mas | Menos | Timesslash ;
+OPERADOR::= Mas:v1 {: parser.guardarOperador(v1.toString()); :} | Menos:v1 {: parser.guardarOperador(v1.toString()); :} | Timesslash:v1 {: parser.guardarOperador(v1.toString()); :} ;
 
 PARAMS_PREV::= PARAMS | ;
 

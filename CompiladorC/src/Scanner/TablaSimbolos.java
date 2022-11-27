@@ -135,6 +135,8 @@ public class TablaSimbolos {
    
   
     public void imprimir(){
+        System.out.println("\n\n\033[0;36mTABLA DE SIMBOLOS\033[0;36m");
+        
         System.out.println("\nID  |   TIPO    |   AMBITO");
         for (int i = 0; i < simbolos.size(); i++) {
             RegistroSemantico current = simbolos.get(i);

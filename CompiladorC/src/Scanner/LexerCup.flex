@@ -82,7 +82,7 @@ main    {return new Symbol(sym.Main,yycolumn,yyline ,yytext());}
 {Identificadores}   {return new Symbol(sym.Identificador,yycolumn,yyline ,yytext());}
 ";"     {return new Symbol(sym.Scolon,yycolumn,yyline ,yytext());}
 
-, {System.out.println("coma"); return new Symbol(sym.Coma,yycolumn,yyline ,yytext());}
+, {System.out.println(""); return new Symbol(sym.Coma,yycolumn,yyline ,yytext());}
 
 ( "[" )     {return new Symbol(sym.Corchete_a,yycolumn,yyline ,yytext());}
 ( "]" )     {return new Symbol(sym.Corchete_c,yycolumn,yyline ,yytext());}

@@ -8,11 +8,11 @@ package Scanner.Registros;
  *
  * @author amtme
  */
-public class RSDO {
-    public int valor;
+public class RSDO extends RS{
+    public float valor;
     public String tipo, nombre;
     
-    public RSDO(int valor, String tipo){
+    public RSDO(float valor, String tipo){
         this.valor = valor;
         this.tipo = tipo;
     }

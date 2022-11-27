@@ -139,7 +139,7 @@ public class Modelo {
                 System.out.println("SUCCESFULL!! :)");
                 
             }catch(Exception ex){
-                System.out.println("Errores");
+                System.out.println("\n\nErrores");
                 System.out.println(syntax.errores);
                
             }
