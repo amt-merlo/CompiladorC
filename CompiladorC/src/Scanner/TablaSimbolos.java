@@ -14,6 +14,7 @@ public class TablaSimbolos {
     private int ultimaFuncion;
     private ArrayList<RegistroSemantico> simbolos;
     private static TablaSimbolos intancia;
+    private boolean errorF;
     
 
     private TablaSimbolos() {
@@ -31,17 +32,27 @@ public class TablaSimbolos {
     
     public void insertarSimbolo(String ID, String tipo, String ambito, int linea, int columna){
         if(buscarSimbolo(ID,ambito) != null){
-            System.out.println("\u001B[31mError semantico encontrado. Linea: " + linea + " Columna: " + columna +  " El identificador fue declarado previamente \""+ID+"\"\u001B[31m");
+            System.out.println("\u001B[31mError semantico encontrado. Linea: " + linea + " Columna: " + columna +  " el identificador fue declarado con anterioridad: \""+ID+"\"\u001B[31m");
             if("Funcion".equals(ambito)){
                 this.EliminarFuncion();
+                this.errorF = false;
+            }
+            if("Parametro".equals(ambito)){
+                this.errorF = true;
             }
         }
         else{
             RegistroSemantico registro = new RegistroSemantico(ID, tipo, ambito);
-            if("Funcion".equals(ambito)){
-                this.ultimaFuncion=simbolos.size();
+            if("Funcion".equals(ambito) && this.errorF){
+                this.EliminarFuncion();
+                this.errorF = false;
             }
-            simbolos.add(registro);
+            else {
+                if("Funcion".equals(ambito)){
+                    this.ultimaFuncion=simbolos.size();
+                }
+                simbolos.add(registro);
+            }
         }
         
     }
@@ -64,6 +75,38 @@ public class TablaSimbolos {
         }
         return null;
     }
+    
+    private boolean buscarVariable(String ID){
+        String currentAmbito;
+        RegistroSemantico current;
+        int cont = 0; 
+        for (int i = cont; i < simbolos.size(); i++) {
+            current  = simbolos.get(i);
+            if(current.getID().compareTo(ID) == 0){
+                currentAmbito = current.getAmbito();
+                if(!currentAmbito.equals("Funcion")){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
+    public boolean buscarFuncion(String ID){
+           String currentAmbito;
+        RegistroSemantico current;
+        int cont = 0; 
+        for (int i = cont; i < simbolos.size(); i++) {
+            current  = simbolos.get(i);
+            if(current.getID().compareTo(ID) == 0){
+                currentAmbito = current.getAmbito();
+                if(currentAmbito.equals("Funcion")){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
     private void EliminarFuncion() {
         RegistroSemantico current;
@@ -78,12 +121,24 @@ public class TablaSimbolos {
         }
     }
     
+    public void verificarAsignacion(String ID, int linea, int columna){
+       if(!buscarVariable(ID)){
+           System.out.println("\u001B[31mError semantico encontrado. Linea: " + linea + " Columna: " + columna +  " uso de variable sin declarar: \""+ID+"\"\u001B[31m");
+       }
+    }
+    
+    public void verificarFuncion(String ID, int linea, int columna){
+        if(!buscarFuncion(ID)){
+           System.out.println("\u001B[31mError semantico encontrado. Linea: " + linea + " Columna: " + columna +  " llamada a función que no ha sido declarada : \""+ID+"\"\u001B[31m");
+        }
+    }
+   
+  
     public void imprimir(){
         System.out.println("\nID  |   TIPO    |   AMBITO");
         for (int i = 0; i < simbolos.size(); i++) {
             RegistroSemantico current = simbolos.get(i);
             System.out.println("\n"+current.getID()+"  | "+current.getTipo()+" | "+current.getAmbito());
         }
-        
     }
 }

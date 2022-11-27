@@ -28,12 +28,20 @@ parser code
     }
 
     public void guardarRSVar(String ID, int linea, int columna){
-        RSVar var = new RS_Var(ID, linea, columna);
+        RSVar var = new RSVar(ID, linea, columna);
         this.pila.Push(var);
     }
 
     public void guardarAmbito(String ambito){
         this.pila.guardarVariable(ambito);
+    }
+
+    public void verificarAsignacion(String ID, int linea, int columna){
+        this.pila.verificarAsignacion(ID, linea, columna);
+    }
+
+    public void verificarFuncion(String ID, int linea, int columna){
+        this.pila.verificarFuncion(ID, linea, columna);
     }
 
 :};
@@ -147,14 +155,14 @@ precedence left Mas, Menos;
 precedence left Timesslash;
 precedence right Not;
 
-start with INICIO;
+start with INICIO; 
 DECLARACIONES_INICIALES::= DECLARACIONES_INICIALES Const TIPO Identificador:v1 {: parser.guardarRSVar(v1.toString(),v1right +1,v1left +1); parser.guardarAmbito("Global"); :}  ARRAY_AUX_CONST Scolon |
-                            DECLARACIONES_INICIALES TIPO Identificador:v1 {: parser.guardarRSVar(v1.toString(),v1right +1,v1left +1); parser.guardarAmbito("Global"); :}  DECLARACIONES_INICIALES_AUX |
+                            DECLARACIONES_INICIALES TIPO Identificador:v1 {: parser.guardarRSVar(v1.toString(),v1right +1,v1left +1); :}  DECLARACIONES_INICIALES_AUX |
                             DECLARACIONES_INICIALES Const TIPO error ARRAY_AUX_CONST Scolon|
                             DECLARACIONES_INICIALES TIPO error DECLARACIONES_INICIALES_AUX 
                             | ;
 
-DECLARACIONES_INICIALES_AUX::= Scolon 
+DECLARACIONES_INICIALES_AUX::= Scolon {: parser.guardarAmbito("Global"); :}
                                 | Parentesis_a PARAMS_PREV Parentesis_c Llave_a DECLARACION_VAR  SENTENCIA Llave_c {: parser.guardarAmbito("Funcion"); :}
                                 | Parentesis_a PARAMS_PREV Parentesis_c Scolon {: parser.guardarAmbito("Funcion"); :}
                                 | error Llave_a DECLARACION_VAR SENTENCIA Llave_c  
@@ -165,7 +173,7 @@ INICIO::= DECLARACIONES_INICIALES MAIN ;
 MAIN ::= TIPO Main Parentesis_a Parentesis_c Llave_a DECLARACION_VAR {: parser.guardarAmbito("Global"); :} SENTENCIA Llave_c 
         |TIPO Main Parentesis_a Parentesis_c error Llave_c| ;
 
-LLAMADA_FUNCION::= Identificador Parentesis_a PARAMS_LL_PREV Parentesis_c Scolon 
+LLAMADA_FUNCION::= Identificador:v1 Parentesis_a PARAMS_LL_PREV Parentesis_c Scolon {: parser.verificarFuncion(v1.toString(),v1right +1,v1left +1); :}
                         | LANG_FUNCS ;
 
 SENTENCIA::=    
@@ -184,7 +192,7 @@ SENTENCIA::=
                 Linea SENTENCIA |
                 error DECL_AUX|                
                 ;
-ASIGNACION_VAR::= Identificador Asignacion ARRAY_AUX_AUX Scolon |Identificador Asignacion error Scolon ;
+ASIGNACION_VAR::= Identificador:v1 Asignacion {: parser.verificarAsignacion(v1.toString(),v1right +1,v1left +1); :} ARRAY_AUX_AUX Scolon |Identificador Asignacion error Scolon ;
 
 DECL_AUX::= SENTENCIA  ;
 
@@ -245,7 +253,7 @@ DECLARACION_FOR ::=
     error
 ;
 
-EXP::= EXP OPERADOR EXP | Parentesis_a EXP Parentesis_c | Identificador | Literal | Numero | OPERADOR  ;
+EXP::= EXP OPERADOR EXP | Parentesis_a EXP Parentesis_c | Identificador | Literal | Numero | OPERADOR | Identificador Unarios ;
 
 OPERADOR::= Mas | Menos | Timesslash ;
 

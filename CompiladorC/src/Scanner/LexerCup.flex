@@ -1,7 +1,6 @@
 package Scanner;
 import java_cup.runtime.Symbol;
 import TokenType.Symbols;
-import TokenType.*
 
 
 %%

@@ -56,5 +56,16 @@ public class PilaSemantica {
         return 1;
     }
     
+    public int verificarAsignacion(String ID, int linea, int columna){
+        this.tablaSim.verificarAsignacion(ID, linea, columna);
+        return 1;
+    }
+    
+    public int verificarFuncion(String ID, int linea, int columna){
+        this.tablaSim.verificarFuncion(ID, linea, columna);
+        return 1;
+    }
+    
+    
     
 }
