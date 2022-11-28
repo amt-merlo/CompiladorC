@@ -41,22 +41,22 @@ public class Principal {
     */
     public static void main(String[] args) throws FileNotFoundException {
         
-        //VentanaPrincipal vista = new VentanaPrincipal();       
-        //Controlador ctrl = new Controlador( vista);
-        //ctrl.iniciar();
+        VentanaPrincipal vista = new VentanaPrincipal();       
+        Controlador ctrl = new Controlador( vista);
+        ctrl.iniciar();
         
-        String lexerPath = "C:\\Users\\amtme\\Documents\\GitHub\\CompiladorC\\CompiladorC\\src\\Scanner\\Lexer.flex";
-        String lexerCupPath = "C:\\Users\\amtme\\Documents\\GitHub\\CompiladorC\\CompiladorC\\src\\Scanner\\LexerCup.flex";
-        String[] paths = {"-parser", "Sintax", "C:\\Users\\amtme\\Documents\\GitHub\\CompiladorC\\CompiladorC\\src\\Scanner\\Syntax.cup"};
+        String lexerPath = "C:\\Users\\FRANJ\\Documents\\GitHub\\CompiladorC\\CompiladorC\\src\\Scanner\\Lexer.flex";
+        String lexerCupPath = "C:\\Users\\FRANJ\\Documents\\GitHub\\CompiladorC\\CompiladorC\\src\\Scanner\\LexerCup.flex";
+        String[] paths = {"-parser", "Sintax", "C:\\Users\\FRANJ\\Documents\\GitHub\\CompiladorC\\CompiladorC\\src\\Scanner\\Syntax.cup"};
         try {
-            generarLexer(lexerPath);
-            generarParser(lexerPath, lexerCupPath, paths);
+//            generarLexer(lexerPath);
+//            generarParser(lexerPath, lexerCupPath, paths);
         } catch (Exception ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         
-        Reader reader = new FileReader("C:\\Users\\amtme\\Desktop\\CodigoC\\identificadores.c");
+        Reader reader = new FileReader("C:\\Users\\FRANJ\\Desktop\\identificadores.c");
         Parser parser = new Parser(reader);
         //Syntax syntax = new Syntax(parser);
         /*
@@ -84,23 +84,23 @@ public class Principal {
         java_cup.Main.main(paths);
         
         //Verificamos que el archivo sym no exista y si existe lo elimina
-        Path rutaSym = Paths.get("C:\\Users\\amtme\\Documents\\GitHub\\CompiladorC\\CompiladorC\\src\\Scanner\\sym.java");
+        Path rutaSym = Paths.get("C:\\Users\\FRANJ\\Documents\\GitHub\\CompiladorC\\CompiladorC\\src\\Scanner\\sym.java");
         if (Files.exists(rutaSym)){
             Files.delete(rutaSym);
         }
         Files.move(
-            Paths.get("C:\\Users\\amtme\\Documents\\GitHub\\CompiladorC\\CompiladorC\\sym.java"),
-            Paths.get("C:\\Users\\amtme\\Documents\\GitHub\\CompiladorC\\CompiladorC\\src\\Scanner\\sym.java")
+            Paths.get("C:\\Users\\FRANJ\\Documents\\GitHub\\CompiladorC\\CompiladorC\\sym.java"),
+            Paths.get("C:\\Users\\FRANJ\\Documents\\GitHub\\CompiladorC\\CompiladorC\\src\\Scanner\\sym.java")
         );
         
         //Verificamos que el archivo Syntax no exista y si existe lo elimina
-        Path rutaSin = Paths.get("C:\\Users\\amtme\\Documents\\GitHub\\CompiladorC\\CompiladorC\\src\\Scanner\\Syntax.java");
+        Path rutaSin = Paths.get("C:\\Users\\FRANJ\\Documents\\GitHub\\CompiladorC\\CompiladorC\\src\\Scanner\\Syntax.java");
         if (Files.exists(rutaSin)){
             Files.delete(rutaSin);
         }
         Files.move(
-            Paths.get("C:\\Users\\amtme\\Documents\\GitHub\\CompiladorC\\CompiladorC\\Sintax.java"),
-            Paths.get("C:\\Users\\amtme\\Documents\\GitHub\\CompiladorC\\CompiladorC\\src\\Scanner\\Syntax.java")
+            Paths.get("C:\\Users\\FRANJ\\Documents\\GitHub\\CompiladorC\\CompiladorC\\Sintax.java"),
+            Paths.get("C:\\Users\\FRANJ\\Documents\\GitHub\\CompiladorC\\CompiladorC\\src\\Scanner\\Syntax.java")
         );
     }
     

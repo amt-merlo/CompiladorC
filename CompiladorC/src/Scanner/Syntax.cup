@@ -69,6 +69,10 @@ parser code
         this.pila.comprobarCiclo(nombre, linea, columna);
     }
 
+    public void operacionIncDec(String nombre, int linea, int columna, String identificador){
+        this.pila.operacionIncDec(nombre, linea, columna, identificador);
+    }
+
 :};
 
 terminal 
@@ -288,7 +292,7 @@ DECLARACION_FOR ::=
     error
 ;
        
-EXP::= EXP OPERADOR EXP | Parentesis_a EXP Parentesis_c | Identificador | Literal:v1 {: parser.guardarConstante(v1.toString(),v1right +1,v1left +1); :} | Numero | OPERADOR | Identificador Unarios ;
+EXP::= EXP OPERADOR EXP | Parentesis_a EXP Parentesis_c | Identificador | Literal:v1 {: parser.guardarConstante(v1.toString(),v1right +1,v1left +1); :} | Numero | OPERADOR | Identificador:v2 Unarios:v1 {: parser.operacionIncDec(v1.toString(),v1right +1,v1left +1,v2.toString()); :} ;
 
 OPERADOR::= Mas:v1 {: parser.guardarOperador(v1.toString()); :} | Menos:v1 {: parser.guardarOperador(v1.toString()); :} | Timesslash:v1 {: parser.guardarOperador(v1.toString()); :} ;
 
