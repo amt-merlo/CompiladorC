@@ -73,6 +73,15 @@ parser code
         this.pila.operacionIncDec(nombre, linea, columna, identificador);
     }
 
+    public void operacionRelacionales(String nombre, int linea, int columna){
+        this.pila.operacionRelacionales(nombre, linea, columna);
+    }
+
+    public void recordarParametro(String nombre, int linea, int columna){
+        RSVar parametro = new RSVar(nombre, linea, columna); 
+        //this.pila.Push(parametro);
+    }
+
 :};
 
 terminal 
@@ -207,7 +216,7 @@ MAIN ::= TIPO Main Parentesis_a Parentesis_c Llave_a DECLARACION_VAR SENTENCIA L
 LLAMADA_FUNCION::= Identificador:v1 Parentesis_a PARAMS_LL_PREV Parentesis_c Scolon {: parser.verificarFuncion(v1.toString(),v1right +1,v1left +1); :}
                         | LANG_FUNCS ;
 
-SENTENCIA::=    
+SENTENCIA::=    Identificador:v2 Unarios:v1 {: parser.operacionIncDec(v1.toString(),v1right +1,v1left +1,v2.toString()); :} Scolon   | 
                 IF DECL_AUX |
                 IF_ELSE DECL_AUX |
                 WHILE DECL_AUX|
@@ -258,11 +267,11 @@ IF ::= If Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a  SENTENCIA Llave_
         If Parentesis_a  SENTENCIA_BOOLEANA Parentesis_c error ;
 
 SENTENCIA_BOOLEANA ::= EXP  |
-                        Identificador OP_RELACIONALES EXP|
+                        Identificador:v1 OP_RELACIONALES EXP {: parser.guardarRSVar(v1.toString(),v1right +1,v1left +1); :}|
                          Identificador OP_RELACIONALES error;
 
 
-OP_RELACIONALES::= Relacionales | And | Or | Not;
+OP_RELACIONALES::= Relacionales:v1 {: parser.operacionRelacionales(v1.toString(),v1right +1,v1left +1); :}  | And:v1 {: parser.operacionRelacionales(v1.toString(),v1right +1,v1left +1); :} | Or:v1 {: parser.operacionRelacionales(v1.toString(),v1right +1,v1left +1); :}| Not:v1 {: parser.operacionRelacionales(v1.toString(),v1right +1,v1left +1); :} ;
 
 IF_ELSE::=  IF  Else Llave_a SENTENCIA Llave_c {: parser.endIf(); :}  | IF error Llave_a SENTENCIA Llave_c ;
 
@@ -292,7 +301,7 @@ DECLARACION_FOR ::=
     error
 ;
        
-EXP::= EXP OPERADOR EXP | Parentesis_a EXP Parentesis_c | Identificador | Literal:v1 {: parser.guardarConstante(v1.toString(),v1right +1,v1left +1); :} | Numero | OPERADOR | Identificador:v2 Unarios:v1 {: parser.operacionIncDec(v1.toString(),v1right +1,v1left +1,v2.toString()); :} ;
+EXP::= EXP OPERADOR EXP | Parentesis_a EXP Parentesis_c | Identificador | Literal:v1 {: parser.guardarConstante(v1.toString(),v1right +1,v1left +1); :} | Numero:v1 {: parser.guardarConstante(v1.toString(),v1right +1,v1left +1); :} | OPERADOR | Identificador:v2 Unarios:v1 {: parser.operacionIncDec(v1.toString(),v1right +1,v1left +1,v2.toString()); :} ;
 
 OPERADOR::= Mas:v1 {: parser.guardarOperador(v1.toString()); :} | Menos:v1 {: parser.guardarOperador(v1.toString()); :} | Timesslash:v1 {: parser.guardarOperador(v1.toString()); :} ;
 
@@ -304,7 +313,7 @@ PARAMS_AUX::= Coma PARAMS | ;
 
 PARAMS_LL_PREV::= PARAMS_LL | ;
 
-PARAMS_LL::= Identificador:v1 {: parser.guardarRSVar(v1.toString(),v1right +1,v1left +1); parser.guardarAmbito("Parametro"); :} PARAMS_LL_AUX ;
+PARAMS_LL::= Identificador:v1 {: parser.recordarParametro(v1.toString(),v1right +1,v1left +1); :} PARAMS_LL_AUX ;
 
 PARAMS_LL_AUX::= Coma PARAMS_LL | ;
 

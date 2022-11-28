@@ -32,7 +32,7 @@ public class TablaSimbolos {
     
     public void insertarSimbolo(String ID, String tipo, String ambito, int linea, int columna){
         if(buscarSimbolo(ID,ambito) != null){
-            System.out.println("\u001B[31mError semantico encontrado. Linea: " + linea + " Columna: " + columna +  " el identificador fue declarado con anterioridad: \""+ID+"\"\u001B[31m");
+            PilaSemantica.errores += "\u001B[37mError semantico encontrado. Linea: " + linea + " Columna: " + columna +  " el identificador fue declarado con anterioridad: \""+ID+"\"\u001B[37m" + "\n";
             if("Funcion".equals(ambito)){
                 this.EliminarFuncion();
                 this.errorF = false;
@@ -123,13 +123,13 @@ public class TablaSimbolos {
     
     public void verificarAsignacion(String ID, int linea, int columna){
        if(!buscarVariable(ID)){
-           System.out.println("\u001B[31mError semantico encontrado. Linea: " + linea + " Columna: " + columna +  " uso de variable sin declarar: \""+ID+"\"\u001B[31m");
+           PilaSemantica.errores += "\u001B[37mError semantico encontrado. Linea: " + linea + " Columna: " + columna +  " uso de variable sin declarar: \""+ID+"\"\u001B[37m" + "\n";
        }
     }
     
     public void verificarFuncion(String ID, int linea, int columna){
         if(!buscarFuncion(ID)){
-           System.out.println("\u001B[31mError semantico encontrado. Linea: " + linea + " Columna: " + columna +  " llamada a función que no ha sido declarada : \""+ID+"\"\u001B[31m");
+            PilaSemantica.errores += "\u001B[37mError semantico encontrado. Linea: " + linea + " Columna: " + columna +  " llamada a función que no ha sido declarada : \""+ID+"\"\u001B[37m" + "\n";
         }
     }
    
@@ -142,5 +142,9 @@ public class TablaSimbolos {
             RegistroSemantico current = simbolos.get(i);
             System.out.println("\n"+current.getID()+"  | "+current.getTipo()+" | "+current.getAmbito());
         }
+        
+        System.out.println("\n\n\n\033[0;36m          LISTA DE ERRORES ENCONTRADOS\033[0;36m\n" 
+                + "=======================================================\n" + PilaSemantica.errores
+                + "=======================================================\n");
     }
 }

@@ -13,9 +13,9 @@ public class RSVar extends RS{
     public int columna;
     public int linea;
 
-    public RSVar(String ID, int columna, int linea) {
+    public RSVar(String ID, int linea , int columna) {
         this.ID = ID;
-        this.columna = columna;
         this.linea = linea;
+        this.columna = columna;
     }
 }

@@ -14,6 +14,7 @@ import Scanner.Registros.*;
 public class PilaSemantica {
 
     public String declaraGlobales = "";
+    public static String errores = ""; 
     public int cuentaGlobales = 0;
     public ArrayList<RS> registros;
     private static PilaSemantica instancia;
@@ -44,6 +45,7 @@ public class PilaSemantica {
     public int guardarVariable(String Ambito) {
         RSTipo tipo = null;
         int cont = 0;
+
         for (int i = this.registros.size() - 1; i >= 0; i--) {
             if ("RSTipo".equals(registros.get(i).nombre())) {
                 tipo = (RSTipo) registros.get(i);
@@ -64,8 +66,8 @@ public class PilaSemantica {
 
         }
         traductor.GenerarCodigo(declaraGlobales);
-        this.Pop();
 
+        this.Pop();
         return 1;
     }
 
@@ -105,6 +107,9 @@ public class PilaSemantica {
         //Primero verificamos que sea un numero
         try {
             Integer.parseInt(numero);
+            if(registros.size() > 2){
+                
+            
             //Primero verificamos si se puede hacer constant folding
             RS registro1 = registros.get(registros.size() - 1);
             RS registro2 = registros.get(registros.size() - 2);
@@ -136,7 +141,7 @@ public class PilaSemantica {
                                 cuentaGlobales = 0;
                             }
                             declaraGlobales += traductor.traduccionSuma(Float.toString(valor1), numero);
-                            traductor.GenerarCodigo(declaraGlobales);
+                            //traductor.GenerarCodigo(declaraGlobales);
 
                             break;
                         case "-":
@@ -147,7 +152,7 @@ public class PilaSemantica {
                                 cuentaGlobales = 0;
                             }
                             declaraGlobales += traductor.traduccionResta(Float.toString(valor1), numero);
-                            traductor.GenerarCodigo(declaraGlobales);
+                            //traductor.GenerarCodigo(declaraGlobales);
                             break;
                         case "/":
                             // ejecutamos una division
@@ -158,9 +163,10 @@ public class PilaSemantica {
                                     cuentaGlobales = 0;
                                 }
                                 declaraGlobales += traductor.traduccionDivision(Float.toString(valor1), numero);
-                                traductor.GenerarCodigo(declaraGlobales);
+                                //traductor.GenerarCodigo(declaraGlobales);
                             } else {
-                                System.out.println("\u001B[31mError semantico encontrado. Linea: " + linea + " Columna: " + columna + " Division por cero. \"\u001B[31m");
+                                errores += "\u001B[37mError semantico encontrado. Linea: " + linea + " Columna: " + columna + " Division por cero. \"\u001B[37m" + "\n";
+                             
 
                             }
                             break;
@@ -172,7 +178,7 @@ public class PilaSemantica {
                                 cuentaGlobales = 0;
                             }
                             declaraGlobales += traductor.traduccionMulti(Float.toString(valor1), numero);
-                            traductor.GenerarCodigo(declaraGlobales);
+                            //traductor.GenerarCodigo(declaraGlobales);
                             break;
                         case "%":
                             break;
@@ -196,6 +202,12 @@ public class PilaSemantica {
             this.Push(resConstante);
             System.out.println("No se hizo constant folding pero se inserto la constante en la pila");
             return true;
+        }else{
+                float valor = Float.parseFloat(numero);
+                RSDO condicion = new RSDO(valor, "Constante");
+                this.Push(condicion);
+                return false;
+            }
         } catch (NumberFormatException nfe) {
             RSDO resLiteral = new RSDO("Literal", numero);
             this.Push(resLiteral);
@@ -246,26 +258,26 @@ public class PilaSemantica {
     }
 
     public boolean comprobarCiclo(String nombre, int linea, int columna) {
-        System.out.println("entra a comprobar");
         for (int i = this.registros.size() - 1; i >= 0; i--) {
             if ("RSWhile".equals(registros.get(i).nombre()) || "RSFor".equals(registros.get(i).nombre())) {
                 System.out.println("reconoce while");
                 if (comprobarIf()) { //Comprobamos que haya un registro de if
                     return true;
                 } else {
-                    System.out.println("\u001B[31mError semantico encontrado. Linea: " + linea + " Columna: " + columna + " " + nombre + "fuera de contexto \"\u001B[31m");
+                    errores += "\u001B[37mError semantico encontrado. Linea: " + linea + " Columna: " + columna + " " + nombre + "fuera de contexto \"\u001B[37m" + "\n";
                     return false;
                 }
             }
         }
-        System.out.println("\u001B[31mError semantico encontrado. Linea: " + linea + " Columna: " + columna + " BREAK | CONTINUE fuera de contexto \"\u001B[31m");
-        for (int i = this.registros.size() - 1; i >= 0; i--) {
-            System.out.println(registros.get(i).nombre());
-        }
+        errores += "\u001B[37mError semantico encontrado. Linea: " + linea + " Columna: " + columna + " BREAK | CONTINUE fuera de contexto \"\u001B[37m" + "\n";
+//        for (int i = this.registros.size() - 1; i >= 0; i--) {
+//            System.out.println(registros.get(i).nombre());
+//        }
         return false;
     }
 
     public void operacionIncDec(String nombre, int linea, int columna, String identificador) {
+        System.out.println("Cuenta globales ----------------------" );
         if (nombre.equals("++")) {
             if (cuentaGlobales != 0) {
                 declaraGlobales += "section .code" + "\n";
@@ -282,5 +294,25 @@ public class PilaSemantica {
             declaraGlobales += traductor.traduccionDec(identificador);
             traductor.GenerarCodigo(declaraGlobales);
         }
+    }
+    
+    public void operacionRelacionales(String nombre, int linea, int columna){
+
+        RSVar variable = null;
+        RS registro1 = registros.get(registros.size() - 1);
+
+        //RS registro2 = registros.get(registros.size() - 2);
+        
+        //RSDO constante = (RSDO) registro2;
+        //float valor1 = constante.valor;
+                    
+        if("RSVar".equals(registro1.nombre())){
+            variable = (RSVar)registro1;
+            System.out.println(variable.ID);
+        }
+        
+
+        //Hacer pop
+        
     }
 }
