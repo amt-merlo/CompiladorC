@@ -22,7 +22,7 @@ public class Traductor {
             FileWriter fichero = null;
             PrintWriter pw = null;
                 try {
-            fichero = new FileWriter("C:\\Users\\FRANJ\\Documents\\GitHub\\CompiladorC\\prueba.asm");
+            fichero = new FileWriter("C:\\Users\\amtme\\Documents\\GitHub\\CompiladorC\\prueba.asm");
             pw = new PrintWriter(fichero);
             pw.println("section .stack" + "\n");
             pw.println("section .data");

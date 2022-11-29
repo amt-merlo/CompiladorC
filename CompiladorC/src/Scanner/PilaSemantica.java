@@ -6,6 +6,7 @@ package Scanner;
 
 import java.util.ArrayList;
 import Scanner.Registros.*;
+import java.util.HashMap;
 
 /**
  *
@@ -76,10 +77,6 @@ public class PilaSemantica {
         return 1;
     }
 
-    public int verificarFuncion(String ID, int linea, int columna) {
-        this.tablaSim.verificarFuncion(ID, linea, columna);
-        return 1;
-    }
 
     public boolean esOperador(RS registro) {
         try {
@@ -141,7 +138,7 @@ public class PilaSemantica {
                                 cuentaGlobales = 0;
                             }
                             declaraGlobales += traductor.traduccionSuma(Float.toString(valor1), numero);
-                            //traductor.GenerarCodigo(declaraGlobales);
+                            traductor.GenerarCodigo(declaraGlobales);
 
                             break;
                         case "-":
@@ -152,7 +149,7 @@ public class PilaSemantica {
                                 cuentaGlobales = 0;
                             }
                             declaraGlobales += traductor.traduccionResta(Float.toString(valor1), numero);
-                            //traductor.GenerarCodigo(declaraGlobales);
+                            traductor.GenerarCodigo(declaraGlobales);
                             break;
                         case "/":
                             // ejecutamos una division
@@ -163,7 +160,7 @@ public class PilaSemantica {
                                     cuentaGlobales = 0;
                                 }
                                 declaraGlobales += traductor.traduccionDivision(Float.toString(valor1), numero);
-                                //traductor.GenerarCodigo(declaraGlobales);
+                                traductor.GenerarCodigo(declaraGlobales);
                             } else {
                                 errores += "\u001B[37mError semantico encontrado. Linea: " + linea + " Columna: " + columna + " Division por cero. \"\u001B[37m" + "\n";
                              
@@ -178,7 +175,7 @@ public class PilaSemantica {
                                 cuentaGlobales = 0;
                             }
                             declaraGlobales += traductor.traduccionMulti(Float.toString(valor1), numero);
-                            //traductor.GenerarCodigo(declaraGlobales);
+                            traductor.GenerarCodigo(declaraGlobales);
                             break;
                         case "%":
                             break;
@@ -314,5 +311,68 @@ public class PilaSemantica {
 
         //Hacer pop
         
+    }
+    
+    //Cuando se hace un llamado a una funcion
+    public int verificarFuncion(String ID, int linea, int columna){
+        
+        ArrayList<String> parametrosLlamada = new ArrayList();
+        ArrayList<RegistroSemantico> parametrosFuncion = new ArrayList();
+        int cont = 0;  
+        //Primero verificamos que la funcion haya sido declarada anteriormente
+        if(this.tablaSim.verificarFuncion(ID, linea, columna)){
+            
+            //Si la funcion existe, saca los parametros con los que fue llamada
+            for (int i = this.registros.size()-1; i > cont; i--){
+                if("RSVar".equals(registros.get(i).nombre())){
+                    
+                    //Verificamos que el parametro se encuentre en la misma linea que la funcion
+                    RSVar variable = (RSVar) registros.get(i);
+                    if(variable.linea == linea){
+                        
+                        //Verificamos que el parametro fue declarado con anterioridad y lo obtenemos
+                        
+                        RegistroSemantico actual = this.tablaSim.getVariable(variable.ID);
+                        System.out.println(actual);
+                        if(actual==null){
+                            System.out.println("entra al if");
+                            errores += "\u001B[37mError semantico encontrado. Linea: " + linea + " Columna: " + columna +  " uso de variable sin declarar: \""+ID+"\"\u001B[37m\n";
+                            
+                        }else{
+                            parametrosLlamada.add(actual.getTipo());
+                        }
+                    }else{
+                        System.out.println("parametro diferente linea");
+                    }
+                }
+            }
+            
+            //Obtenemos los parametros originales de la tabla de simbolos
+            
+            parametrosFuncion = this.tablaSim.getParametros(ID);
+            System.out.println("VS: "+parametrosFuncion.size()+ " " + parametrosLlamada.size());
+            
+            //Si la cantidad de parametros no coincide, indicamos el error
+            if(parametrosLlamada.size()!= parametrosFuncion.size()){
+                System.out.println("los parametros son diferentes");
+                errores += "\u001B[37mError semantico encontrado. Linea: " + linea + " Columna: " + columna +  " cantidad de parametros no coincide en la llamada de la funcion: \""+ID+"\"\u001B[37m\n";
+                return 0;
+            }else{
+                System.out.println("compara parametros");
+                //Hacemos la comparacion de parametros
+                for(int i = 0; i<parametrosFuncion.size(); i++){
+                    String tipoLlamada = parametrosLlamada.get(i);
+                    String tipoOriginal = parametrosFuncion.get(i).getTipo();
+                    
+                    //Comparamos
+                    if(!tipoLlamada.equals(tipoOriginal)){
+                        //error
+                        errores += "\u001B[37mError semantico encontrado. Linea: " + linea + " Columna: " + columna + " " + "tipo de parametro incorrecto \"\u001B[37m" + "\n";
+                        return 0;
+                    }
+                }
+            }
+        }
+        return 1;
     }
 }

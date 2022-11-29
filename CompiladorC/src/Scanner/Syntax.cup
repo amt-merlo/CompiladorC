@@ -79,7 +79,7 @@ parser code
 
     public void recordarParametro(String nombre, int linea, int columna){
         RSVar parametro = new RSVar(nombre, linea, columna); 
-        //this.pila.Push(parametro);
+        this.pila.Push(parametro);
     }
 
 :};
@@ -213,7 +213,7 @@ INICIO::= DECLARACIONES_INICIALES MAIN ;
 MAIN ::= TIPO Main Parentesis_a Parentesis_c Llave_a DECLARACION_VAR SENTENCIA Llave_c 
         |TIPO Main Parentesis_a Parentesis_c error Llave_c| ;
 
-LLAMADA_FUNCION::= Identificador:v1 Parentesis_a PARAMS_LL_PREV Parentesis_c Scolon {: parser.verificarFuncion(v1.toString(),v1right +1,v1left +1); :}
+LLAMADA_FUNCION::= Identificador:v1 Parentesis_a PARAMS_LL_PREV {: parser.verificarFuncion(v1.toString(),v1right +1,v1left +1); :} Parentesis_c Scolon  
                         | LANG_FUNCS ;
 
 SENTENCIA::=    Identificador:v2 Unarios:v1 {: parser.operacionIncDec(v1.toString(),v1right +1,v1left +1,v2.toString()); :} Scolon   | 
@@ -241,7 +241,7 @@ CONST_AUX::= Const | ;
 RETURN_AUX_OPTIONS::= Scolon | Identificador Scolon ;
 
 DECLARACION_VAR::=  Const TIPO Identificador:v1 {: parser.guardarRSVar(v1.toString(),v1right +1,v1left +1); parser.guardarAmbito("Local"); :}  ARRAY_AUX_CONST Scolon DECLARACION_VAR 
-                    | TIPO Identificador:v1 {: parser.guardarRSVar(v1.toString(),v1right +1,v1left +1); parser.guardarAmbito("Local"); :} ARRAY_AUX Scolon DECLARACION_VAR 
+                    | TIPO Identificador:v1 ARRAY_AUX {: parser.guardarRSVar(v1.toString(),v1right +1,v1left +1); parser.guardarAmbito("Local"); :} Scolon DECLARACION_VAR 
                     |    Const TIPO Identificador DECLARACION_VAR_AUX_LIST
                     |    ;
 

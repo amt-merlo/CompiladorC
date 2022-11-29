@@ -82,14 +82,33 @@ public class TablaSimbolos {
         int cont = 0; 
         for (int i = cont; i < simbolos.size(); i++) {
             current  = simbolos.get(i);
-            if(current.getID().compareTo(ID) == 0){
+            if(current.getID().equals(ID)){
                 currentAmbito = current.getAmbito();
+               
                 if(!currentAmbito.equals("Funcion")){
                     return true;
                 }
             }
         }
         return false;
+    }
+    
+    public RegistroSemantico getVariable(String ID){
+        String currentAmbito;
+        RegistroSemantico current;
+        int cont = 0; 
+        for (int i = cont; i < simbolos.size(); i++) {
+            current  = simbolos.get(i);
+            if(current.getID().equals(ID)){
+                currentAmbito = current.getAmbito();
+                if(!currentAmbito.equals("Funcion")){
+                    System.out.println("entra a if de getVariable");
+                    return current;
+                }
+            }
+        }
+        System.out.println("sale con null");
+        return null;
     }
     
     public boolean buscarFuncion(String ID){
@@ -127,13 +146,52 @@ public class TablaSimbolos {
        }
     }
     
-    public void verificarFuncion(String ID, int linea, int columna){
+    public boolean verificarFuncion(String ID, int linea, int columna){
         if(!buscarFuncion(ID)){
             PilaSemantica.errores += "\u001B[37mError semantico encontrado. Linea: " + linea + " Columna: " + columna +  " llamada a función que no ha sido declarada : \""+ID+"\"\u001B[37m" + "\n";
+            return false;
         }
+        return true;
     }
    
   
+    public ArrayList<RegistroSemantico> getParametros(String idFuncion){
+       ArrayList<RegistroSemantico> parametros = new ArrayList();
+       RegistroSemantico current, parametro;
+       
+       int funcionInicial = -1, funcionFinal = -1;
+       
+       //Recorremos la tabla de simbolos para buscar la posicion de la funcion
+        for (int i = 0; i < simbolos.size(); i++) {
+            current = simbolos.get(i);
+            
+            if(current.getAmbito().equals("Funcion") && current.getID().equals(idFuncion)){
+                funcionInicial = i;
+                break;
+            }
+        }
+        
+        //Recorremos la tabla de simbolos para buscar la posicion de la siguiente funcion
+        for (int i = funcionInicial-1; i >= 0; i--) {
+            current = simbolos.get(i);
+            
+            if(current.getAmbito().equals("Funcion")){
+                funcionFinal = i;
+                break;
+            }
+        }
+        
+        //Sacamos los parametros de la funcion
+        for (int i = funcionInicial; i > funcionFinal; i--) {
+            parametro = simbolos.get(i);
+            
+            if(parametro.getAmbito().equals("Parametro")){
+                parametros.add(parametro);
+            }
+        }
+        return parametros;
+    }
+    
     public void imprimir(){
         System.out.println("\n\n\033[0;36mTABLA DE SIMBOLOS\033[0;36m");
         
