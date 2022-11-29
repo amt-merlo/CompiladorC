@@ -14,6 +14,7 @@ import java.util.HashMap;
  */
 public class PilaSemantica {
 
+    public int lineaGlobal = 0;
     public String declaraGlobales = "";
     public static String errores = ""; 
     public int cuentaGlobales = 0;
@@ -214,42 +215,53 @@ public class PilaSemantica {
     }
 
     public boolean startIf(int linea, int columna) {
-        System.out.println("entra a startif");
-        RSIf rsIF = new RSIf();
-        this.Push(rsIF);
+        String lineaString = linea+"";
+        lineaGlobal = linea;
+        if (cuentaGlobales != 0) {
+        declaraGlobales += "section .code" + "\n";
+        cuentaGlobales = 0;
+        }
+        declaraGlobales += traductor.traduccionIfInicio(lineaString);
+        traductor.GenerarCodigo(declaraGlobales);
         return true;
     }
 
     public boolean startWhile(int linea, int columna) {
-        System.out.println("entra a startwhile"+linea);
-        //Se crean las etiquetas aqui 
-        //se instancia el objeto con las etiquetas
-        RSWhile rsWhile = new RSWhile();
-        
-        this.Push(rsWhile);
+        String lineaString = linea+"";
+        lineaGlobal = linea;
+        if (cuentaGlobales != 0) {
+        declaraGlobales += "section .code" + "\n";
+        cuentaGlobales = 0;
+        }
+        declaraGlobales += traductor.traduccionWhileInicio(lineaString);
+        traductor.GenerarCodigo(declaraGlobales);
+
         return true;
     }
     
     public boolean endWhile(int linea, int columna){
-        //crear etiqueta del jump
-        System.out.println("entra a endWhile"+linea);
+        String lineaString = lineaGlobal+"";
+        if (cuentaGlobales != 0) {
+        declaraGlobales += "section .code" + "\n";
+        cuentaGlobales = 0;
+        }
+        declaraGlobales += traductor.traduccionWhileFin(lineaString);
+        traductor.GenerarCodigo(declaraGlobales);
+
         return true;
     }
+    
 
     public boolean endIf(int linea, int columna) {
-        System.out.println("entra a endIf"+linea);
-        //Generamos el exit label
-
-        //Pop al RSIf y la pila queda igual que antes del if
-        RSTipo tipo = null;
-        int cont = 0;
-        for (int i = this.registros.size() - 1; i >= 0; i--) {
-            if ("RSIf".equals(registros.get(i).nombre())) {
-                cont = i;
-                break;
-            }
+        
+        String lineaString = lineaGlobal+"";
+        if (cuentaGlobales != 0) {
+        declaraGlobales += "section .code" + "\n";
+        cuentaGlobales = 0;
         }
-        registros.remove(cont);
+        declaraGlobales += traductor.traduccionElseInicio(lineaString);
+        traductor.GenerarCodigo(declaraGlobales);
+        
         return true;
     }
 
@@ -283,7 +295,6 @@ public class PilaSemantica {
     }
 
     public void operacionIncDec(String nombre, int linea, int columna, String identificador) {
-        System.out.println("Cuenta globales ----------------------" );
         if (nombre.equals("++")) {
             if (cuentaGlobales != 0) {
                 declaraGlobales += "section .code" + "\n";
