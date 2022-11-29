@@ -53,16 +53,20 @@ parser code
         this.pila.constantFolding(numero, linea, columna);
     }
 
-    public void startIf(){
-        this.pila.startIf();
+    public void startIf(int linea, int columna){
+        this.pila.startIf(linea, columna);
     }
 
-    public void startWhile(){
-        this.pila.startWhile();
+    public void startWhile(int linea, int columna){
+        this.pila.startWhile(linea, columna);
     }
 
-    public void endIf(){
-        this.pila.endIf();
+    public void endWhile(int linea, int columna){
+        this.pila.endWhile(linea, columna);
+    }
+
+    public void endIf(int linea, int columna){
+        this.pila.endIf(linea, columna);
     }
 
     public void comprobarCiclo(String nombre, int linea, int columna){
@@ -262,7 +266,7 @@ ARRAY_AUX_AUX::= EXP | Llave_a  ARRAY_EXP_AUX   Llave_c ;
 ARRAY_EXP_AUX::= EXP |  EXP Coma ARRAY_EXP_AUX;
 
 
-IF ::= If Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a  SENTENCIA Llave_c |
+IF ::= If:v1 Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a  {: parser.startIf(v1right +1,v1left +1); :} SENTENCIA Llave_c |
        If Parentesis_a error Parentesis_c Llave_a SENTENCIA Llave_c |
         If Parentesis_a  SENTENCIA_BOOLEANA Parentesis_c error ;
 
@@ -273,9 +277,9 @@ SENTENCIA_BOOLEANA ::= EXP  |
 
 OP_RELACIONALES::= Relacionales:v1 {: parser.operacionRelacionales(v1.toString(),v1right +1,v1left +1); :}  | And:v1 {: parser.operacionRelacionales(v1.toString(),v1right +1,v1left +1); :} | Or:v1 {: parser.operacionRelacionales(v1.toString(),v1right +1,v1left +1); :}| Not:v1 {: parser.operacionRelacionales(v1.toString(),v1right +1,v1left +1); :} ;
 
-IF_ELSE::=  IF  Else Llave_a SENTENCIA Llave_c {: parser.endIf(); :}  | IF error Llave_a SENTENCIA Llave_c ;
+IF_ELSE::=  IF  Else Llave_a SENTENCIA Llave_c:v2 {: parser.endIf(v2right +1,v2left +1); :} | IF error Llave_a SENTENCIA Llave_c ;
 
-WHILE::= While Parentesis_a SENTENCIA_BOOLEANA Parentesis_c  Llave_a  SENTENCIA  Llave_c {: parser.startWhile(); :} | While Parentesis_a error  Parentesis_c  Llave_a  SENTENCIA  Llave_c  ;
+WHILE::= While:v1 Parentesis_a {: parser.startWhile(v1right +1,v1left +1); :} SENTENCIA_BOOLEANA Parentesis_c  Llave_a  SENTENCIA  Llave_c:v2 {: parser.endWhile(v2right +1,v2left +1); :} | While Parentesis_a error  Parentesis_c  Llave_a  SENTENCIA  Llave_c  ;
 
 DO_WHILE::= Do Llave_a  SENTENCIA  Llave_c  While Parentesis_a SENTENCIA_BOOLEANA Parentesis_c |
             Do Llave_a  SENTENCIA  Llave_c  While Parentesis_a error Parentesis_c ;

@@ -180,7 +180,7 @@ public class PilaSemantica {
                         case "%":
                             break;
                         default:
-                            System.out.println("Sin constant folding");
+                            System.out.println("");
                     }
 
                     //Hacemos pop a la pila para eliminar el operador y la constante anterior
@@ -208,27 +208,36 @@ public class PilaSemantica {
         } catch (NumberFormatException nfe) {
             RSDO resLiteral = new RSDO("Literal", numero);
             this.Push(resLiteral);
-            System.out.println("no es numero");
             return false;
         }
 
     }
 
-    public boolean startIf() {
+    public boolean startIf(int linea, int columna) {
         System.out.println("entra a startif");
         RSIf rsIF = new RSIf();
         this.Push(rsIF);
         return true;
     }
 
-    public boolean startWhile() {
-        System.out.println("entra a startwhile");
+    public boolean startWhile(int linea, int columna) {
+        System.out.println("entra a startwhile"+linea);
+        //Se crean las etiquetas aqui 
+        //se instancia el objeto con las etiquetas
         RSWhile rsWhile = new RSWhile();
+        
         this.Push(rsWhile);
         return true;
     }
+    
+    public boolean endWhile(int linea, int columna){
+        //crear etiqueta del jump
+        System.out.println("entra a endWhile"+linea);
+        return true;
+    }
 
-    public boolean endIf() {
+    public boolean endIf(int linea, int columna) {
+        System.out.println("entra a endIf"+linea);
         //Generamos el exit label
 
         //Pop al RSIf y la pila queda igual que antes del if
@@ -257,7 +266,7 @@ public class PilaSemantica {
     public boolean comprobarCiclo(String nombre, int linea, int columna) {
         for (int i = this.registros.size() - 1; i >= 0; i--) {
             if ("RSWhile".equals(registros.get(i).nombre()) || "RSFor".equals(registros.get(i).nombre())) {
-                System.out.println("reconoce while");
+                
                 if (comprobarIf()) { //Comprobamos que haya un registro de if
                     return true;
                 } else {
@@ -305,7 +314,7 @@ public class PilaSemantica {
                     
         if("RSVar".equals(registro1.nombre())){
             variable = (RSVar)registro1;
-            System.out.println(variable.ID);
+            
         }
         
 
@@ -333,16 +342,14 @@ public class PilaSemantica {
                         //Verificamos que el parametro fue declarado con anterioridad y lo obtenemos
                         
                         RegistroSemantico actual = this.tablaSim.getVariable(variable.ID);
-                        System.out.println(actual);
+                        
                         if(actual==null){
-                            System.out.println("entra al if");
+                            
                             errores += "\u001B[37mError semantico encontrado. Linea: " + linea + " Columna: " + columna +  " uso de variable sin declarar: \""+ID+"\"\u001B[37m\n";
                             
                         }else{
                             parametrosLlamada.add(actual.getTipo());
                         }
-                    }else{
-                        System.out.println("parametro diferente linea");
                     }
                 }
             }
@@ -350,15 +357,12 @@ public class PilaSemantica {
             //Obtenemos los parametros originales de la tabla de simbolos
             
             parametrosFuncion = this.tablaSim.getParametros(ID);
-            System.out.println("VS: "+parametrosFuncion.size()+ " " + parametrosLlamada.size());
             
             //Si la cantidad de parametros no coincide, indicamos el error
             if(parametrosLlamada.size()!= parametrosFuncion.size()){
-                System.out.println("los parametros son diferentes");
                 errores += "\u001B[37mError semantico encontrado. Linea: " + linea + " Columna: " + columna +  " cantidad de parametros no coincide en la llamada de la funcion: \""+ID+"\"\u001B[37m\n";
                 return 0;
             }else{
-                System.out.println("compara parametros");
                 //Hacemos la comparacion de parametros
                 for(int i = 0; i<parametrosFuncion.size(); i++){
                     String tipoLlamada = parametrosLlamada.get(i);

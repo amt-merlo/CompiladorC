@@ -15,6 +15,11 @@ public class RSWhile extends RS{
     public RSWhile() {
     }
 
+    public RSWhile(String while_label, String exit_label) {
+        this.while_label = while_label;
+        this.exit_label = exit_label;
+    }
+
     public void setWhile_label(String while_label) {
         this.while_label = while_label;
     }

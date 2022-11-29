@@ -21,4 +21,11 @@ section .code
        sub eax, ebx ;
        add eax, 0 ;
        mov [res], eax ; Aqui termina la resta
+       mov eax, 7.0; Aqui empieza la suma
+       sub eax, 0 ;
+       mov ebx, 0
+       sub eax, 0 ;
+       add eax, ebx ;
+       add eax, 0 ;
+       mov [res], eax ; Aqui termina la suma
 
